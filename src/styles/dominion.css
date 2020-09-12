@@ -1,0 +1,253 @@
+body {
+    margin:0px;
+}
+h1 {
+    margin:0px;
+}
+#container {
+    padding: 20px;
+}
+.card-set-active, .card-set-inactive {
+    overflow-x:auto;
+    white-space: nowrap;
+}
+.card-set ul {
+    padding: 0px;
+    margin: 0px;
+}
+.card-set h2{
+    padding: 5px;
+    margin-top: 0px;
+}
+.card-set li {
+    list-style-type: none;
+    display:inline-block;
+    padding:22px;
+}
+.card-set-inactive li  {
+    opacity: .5;
+}
+.card-set img {
+    border-radius:5px;
+    box-shadow: 0 0 12px 12px rgba(255, 255, 255, .7);
+}
+.card-set-container1 {
+    display:grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap:1rem;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    z-index: 4;
+    width:100%;
+}
+.card-set-container2 {
+    display:grid; 
+    grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+    grid-gap:1rem;
+}
+.card-set-facedown {
+    padding: 10px;
+    display:block;
+}
+
+.card-active img {
+    box-shadow: 0px 7px 4px -2px gray;
+}
+.card-inactive {
+    opacity: .5;
+}
+.card {
+    position:relative;
+}
+.button-container {
+    position:absolute;
+    margin: 75px auto;
+    text-align: center;
+    width:80px;
+    left:0;
+    right:0;
+}
+.board-container {
+    position:relative;
+    text-align:center;
+}
+.board-card {
+    width:180px;
+    height:275px;
+}
+.board-element {
+    position:absolute;
+    top:0;
+    margin: 61px 0 0 35px;
+}
+.board-stack {
+    position:relative;
+    display:inline-block;
+    margin: 20px 0 0 20px;
+}
+/*TODO: probably a better way to acheive this stacking, esp when more types get added*/
+.board-stack:nth-of-type(1){
+    z-index:4;
+}
+.board-stack:nth-of-type(2){
+    z-index:3;
+}
+.board-stack:nth-of-type(3){
+    z-index:2;
+}
+.board-stack:nth-of-type(4){
+    z-index:1;
+}
+.board-stack:nth-of-type(5){
+    z-index:0;
+}
+.board-background {
+    position:relative;
+    z-index:5;
+}
+.board-stages {
+    text-align:left;
+}
+.board-stage-img {
+    margin-top:-185px;
+    margin-left:62px;
+    z-index:-1;
+}
+.tray{
+    position:absolute;
+}
+
+
+
+
+.popup-background {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,.25);
+    z-index:100;
+}
+.popup-content {
+    position:absolute;
+    left:15%;
+    padding: 20px;
+    background-color: white;
+    width:70%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+
+
+
+.bank-quantity {
+    display:block;
+    text-align: center;
+}
+
+.player-list, .player-list h2, .player-list ul, .player-list li {
+    display:inline;        
+}
+
+.player-list ul {
+    padding: 0px;
+}
+
+.player-list li {
+    list-style-type: none;
+    padding: 15px;
+}
+
+.player-list li.active {
+    font-weight:bold;
+    text-decoration: underline;
+}
+
+.turn-dashboard {
+    margin-top:25px;   
+    display:grid; 
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    
+}
+.turn-dashboard h3 {
+    display:inline;
+    font-weight: normal;
+}
+.turn-dashboard p {
+    display:inline;
+    font-weight: bold;
+    font-size: 18px;
+    margin-right:25px;
+}
+
+.actions-background, .end-screen {
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,.25);
+}
+.actions-dialog, .end-screen-content {
+    position:absolute;
+    left:15%;
+    padding: 20px;
+    background-color: white;
+    width:70%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 600px) {
+    .actions-dialog, .end-screen-content {
+        left:5%;
+        width:90%;    
+    }
+}
+
+.actions-dialog ul {
+    padding: 0px;
+}
+.actions-dialog li  {
+    padding: 10px;;
+}
+.actions-dialog input[type=checkbox], .actions-dialog input[type=radio]{
+    transform: scale(2);
+    margin-left:20px;
+}
+.actions-dialog .card-set input[type=checkbox], .actions-dialog .card-set input[type=radio]{
+    margin-left:-20px;
+}
+
+.header{
+    width:100%;
+}
+.header img{
+    width:15%;
+    margin: 0 auto;
+    display: block;
+}
+
+html, body, .game-container{
+    height:100%;
+    position:relative;
+}
+button {
+    padding:2px;
+}
+body {
+    background-image: url('../images/background2.jpg');
+}
+
+@font-face {
+    font-family: optimusPrinceps;
+    src: url(fonts/OptimusPrincepsSemiBold.ttf);
+  }
+
+h2, h3, h4, .player-list, .bank-quantity, .card-set-facedown, .user-name{
+    font-family: optimusPrinceps;
+}
