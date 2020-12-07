@@ -1,7 +1,7 @@
 class Utility {
     static apiServer() {
         if (process.env.APP_ENV === 'prod'){
-            return "https://jtriemstra-dominion-api.herokuapp.com";
+            return "https://wonders-api.herokuapp.com/";
         }
         else {
             return "http://localhost:8080";
