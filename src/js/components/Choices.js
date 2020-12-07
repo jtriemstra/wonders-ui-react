@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import Utility from "../Utility";
+import CardImage from "../CardImage";
 
 class Choices extends Component {
     constructor() {
@@ -8,12 +9,13 @@ class Choices extends Component {
       this.handleOption = this.handleOption.bind(this);
     }
 
-    handleOption(event){
+    handleOption(optionName, event){
         event.preventDefault();
 
         let actionName = this.props.action;
-        let optionName = event.target.dataset.optionname;
-        var myRequest = new Request(Utility.apiServer() + "/" + actionName + "?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName() + "&optionName=" + optionName);
+        
+        //TODO: is passing "global" information down to components like this a good approach"?
+        var myRequest = new Request(Utility.apiServer() + "/" + actionName + "?playerId=" + this.props.playerName + "&gameName=" + this.props.gameName + "&optionName=" + optionName);
 
         fetch(myRequest, Utility.getRequestInit())
         .then(res => res.json())
@@ -25,16 +27,33 @@ class Choices extends Component {
 
     render() {
         if (this.props.options){
+            let heading = this.props.action === "chooseScience" ? "Choose a scientific symbol" : (this.props.action === "chooseGuild" ? "Choose a guild card to copy" :"");
             return (
                 <div className="popup-background">
                     <div className="popup-content">
-                        {
-                            this.props.options.map((option) => {
-                                return <p>
-                                    <a onClick={this.handleOption} data-optionname={option}>{option}</a>
-                                </p>;
-                            })
-                        }
+                        <div className="parchment"></div>
+                        <div className="splash-screen-wrapper">
+                            <h2>{heading}</h2>
+                            {
+                                this.props.options.map((option) => {
+                                    let optionName = option.name ? option.name : option;
+                                    let clickable = optionName;
+                                    if (this.props.action === "chooseGuild") {
+                                        clickable = <img src={"images/cards/" + CardImage.getImage(optionName)} />;
+                                    }
+                                    else if (this.props.action === "chooseScience"){
+                                        clickable = <img src={"images/icons/" + optionName + ".png"} />;
+                                    }
+                                    return <a onClick={(event) => this.handleOption(optionName, event)}>{clickable}</a>;
+                                })
+                            }                            
+                        </div>
+                        <svg>
+                            <filter id="wavy2">
+                                <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="1"></feTurbulence>
+                                <feDisplacementMap in="SourceGraphic" scale="20" />
+                            </filter>
+                        </svg>
                     </div>
                 </div>
             );

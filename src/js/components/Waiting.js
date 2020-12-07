@@ -8,11 +8,27 @@ class Waiting extends Component {
     }
 
     render() {
+        let message = "";
+        if (this.props.waitFor === "START") message = " for game to start";
+        if (this.props.waitFor === "PLAYERS") message = " for all players to join";
+
         if (this.props.isWaiting){
             return (
+                <>
                 <div className="popup-background">
-                    <div className="popup-content">Waiting</div>
+                    <div className="popup-content">
+                        <div className="parchment"></div>
+                        <p>Waiting {message}</p>   
+                    </div>
+                    
                 </div>
+                <svg>
+                    <filter id="wavy2">
+                        <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="1"></feTurbulence>
+                        <feDisplacementMap in="SourceGraphic" scale="20" />
+                    </filter>
+                </svg>
+              </>
             );
         }
         

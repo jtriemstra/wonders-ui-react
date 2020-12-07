@@ -9,8 +9,8 @@ class SplashScreen extends Component {
 
         this.handleStart = this.handleStart.bind(this);
         this.handleJoin = this.handleJoin.bind(this);
-        this.handleEnd = this.handleEnd.bind(this);        
-        this.handleList = this.handleList.bind(this);        
+        
+        //this.handleList = this.handleList.bind(this);        
     }
 
     componentDidMount(){
@@ -40,25 +40,6 @@ class SplashScreen extends Component {
         clearInterval(this.statusInterval);
     }
 
-    handleEnd(e) {
-        if (e) e.preventDefault();
-
-        fetch(Utility.apiServer() + "/end")
-        .then(res => {
-            if (res.ok) { return true; }
-            else { res.text().then(text => {
-                console.error(text);
-              });               
-            }
-        })
-        .then((result) => {
-            if (result){
-                document.cookie = "playerName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                window.location.reload();
-            }
-        });
-    }
-
     getName(){
         const splashForm = event.target.closest("form");
         return splashForm.querySelector("#playerName").value;
@@ -82,11 +63,11 @@ class SplashScreen extends Component {
         });
     }
 
-    handleList(event) {
+    /*handleList(event) {
         event.preventDefault();
 
         this.checkGameStatus();
-    }
+    }*/
 
     checkGameStatus(){
         var myRequest = new Request(Utility.apiServer() + "/listGames");
@@ -94,48 +75,37 @@ class SplashScreen extends Component {
         fetch(myRequest, Utility.getRequestInit())
         .then(res => res.json())
         .then((result) => {
+            document.querySelector("#gameName").length = 0;
             for (var i=0; i<result.games.games.length; i++){
                 document.querySelector("#gameName").add(new Option(result.games.games[i]));
             }
-        });
-    }
-
-    renderButtons(){
-        return (
-            <div>
-                <button onClick={this.handleStart}>Create New Game</button><br/>                    
-                <button onClick={this.handleList}>List Games</button>
-                <button onClick={this.handleJoin}>Join Game</button>
-                <button onClick={this.handleEnd}>End Game</button>
-            </div>
-        );
-
-        if (!this.state.activeGame){
-            return (
-                <div>
-                    <button onClick={this.handleStart}>Start Game</button><br/>                    
-                </div>
-            );
-        }
-        else {
-            return (
-                <div>
-                    <button onClick={this.handleJoin}>Join Game</button>
-                    <button onClick={this.handleEnd}>End Game</button>
-                </div>
-            );
-        }
-        
+        })
+        .catch(error => {console.log(error);});
     }
 
     render() {
         return (
-            <form>
-                <label className="user-name">Enter your name: <input type="text" id="playerName"></input></label>
-                <label className="user-name">Select game name: <select id="gameName" /></label>
-                {this.renderButtons()}                
+            <div>
+            <form className="popup-content">
+                <div className="parchment"></div>
+                <div className="splash-screen-wrapper">
+                    <div className="splash-screen-column">
+                        <label className="user-name">Enter your name: <input type="text" id="playerName"></input></label><br/>
+                        <button onClick={this.handleStart}>Create New Game</button>
+                    </div>
+                    <div className="splash-screen-column">
+                        <label className="user-name">Select game name to join: <select id="gameName" /></label><br/>
+                        <button onClick={this.handleJoin}>Join Game</button>
+                    </div>                
+                </div>
             </form>
-            
+            <svg>
+                <filter id="wavy2">
+                    <feTurbulence x="0" y="0" baseFrequency="0.02" numOctaves="5" seed="1"></feTurbulence>
+                    <feDisplacementMap in="SourceGraphic" scale="20" />
+                </filter>
+            </svg>
+            </div>
         );
     }
 }

@@ -9,15 +9,14 @@ import Board from "./Board";
 import Waiting from "./Waiting";
 import FinishAge from "./FinishAge";
 import Choices from "./Choices";
+import DefineGame from "./DefineGame";
+import Tray from "./Tray";
 
 class WondersUi extends Component {
-  constructor() {
+  constructor(props) {
     super();
 
-    this.state = {
-      gameState: null,
-      ageFinished: false
-    };
+    
 
     this.handleNewState = this.handleNewState.bind(this);
     this.getOptions = this.getOptions.bind(this);
@@ -26,6 +25,22 @@ class WondersUi extends Component {
     this.startAge = this.startAge.bind(this);
     this.finishAge = this.finishAge.bind(this);
     this.handleAction = this.handleAction.bind(this);
+    this.updateState = this.updateState.bind(this);
+
+    if (props && props.gameState){
+      console.log("props found");
+      this.state = {
+        gameState: props.gameState,
+        ageFinished: false
+      };      
+    }
+    else {
+      console.log('no props found');
+      this.state = {
+        gameState: null,
+        ageFinished: false
+      };
+    }
   }
 
   getPlayerName() {
@@ -54,7 +69,7 @@ class WondersUi extends Component {
 
   componentDidMount() {
     console.log("mount");
-    //TODO: consolidate this and the same method in GameContainer
+
     if(this.getPlayerName()){
         this.handleRefresh();
     }
@@ -85,7 +100,8 @@ class WondersUi extends Component {
             window.location.reload();
           }
         }
-    });
+    })
+    .catch(error => {console.log(error);});
   }
 
   handleNewState(newState, playerName){
@@ -103,16 +119,24 @@ class WondersUi extends Component {
     if (newState.cards) mergedState.cards = newState.cards;
     if (newState.cardsOnBoard) mergedState.cardsOnBoard = newState.cardsOnBoard;
     if (newState.coins != undefined) mergedState.coins = newState.coins;
-    if (newState.defeats) mergedState.defeats = newState.defeats;
-    if (newState.victories) mergedState.victories = newState.victories;
+    if (newState.defeats != undefined) mergedState.defeats = newState.defeats;
+    if (newState.victories != undefined) mergedState.victories = newState.victories;
+    if (newState.allDefeats != undefined) mergedState.allDefeats = newState.allDefeats;
+    if (newState.allVictories) mergedState.allVictories = newState.allVictories;
     if (newState.nextActions) mergedState.nextActions = newState.nextActions;
     if (newState.buildState) mergedState.buildState = newState.buildState;    
+    if (newState.waitFor) mergedState.waitFor = newState.waitFor;
+    if (newState.leftNeighbor) mergedState.leftNeighbor = newState.leftNeighbor;
+    if (newState.rightNeighbor) mergedState.rightNeighbor = newState.rightNeighbor;
+    if (newState.age) mergedState.age = newState.age;
+    if (newState.buildCost != undefined) mergedState.buildCost = newState.buildCost;
     if (newState.options) {
       mergedState.options = newState.options;    
     }
     else {
       mergedState.options = null;
     }
+    if (newState.allVictoryPoints) mergedState.allVictoryPoints = newState.allVictoryPoints;
 
     this.setState({gameState: mergedState});
 
@@ -129,9 +153,15 @@ class WondersUi extends Component {
       if (newState.nextActions === "options"){
         this.getOptions();
       }
-      else if (newState.nextActions === "finishAge"){
+      else if (newState.nextActions === "getEndOfAge"){
         this.finishAge();
       }
+      else if (newState.nextActions === "finishGame"){
+        this.finishGame();
+      }
+      else if (newState.nextActions === "start"){
+        this.beginPlay();
+      }      
     }
   }
 
@@ -170,6 +200,7 @@ class WondersUi extends Component {
   }
 
   wait(){
+    console.log("in wait");
         var myRequest = new Request(Utility.apiServer() + "/wait?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
 
         fetch(myRequest, Utility.getRequestInit())
@@ -191,6 +222,18 @@ class WondersUi extends Component {
             this.setState({ageFinished:true});
         });
   }
+  
+  finishGame(){
+    var myRequest = new Request(Utility.apiServer() + "/finishGame?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
+
+    fetch(myRequest, Utility.getRequestInit())
+    .then(res => res.json())
+    .then((result) => {
+        console.log(result);
+        this.updateState(result);
+        this.setState({ageFinished:true});
+    });
+  }
 
   startAge(result){
     this.updateState(result);
@@ -202,56 +245,43 @@ class WondersUi extends Component {
     const gameState = this.state.gameState;
 
     let splashScreen = null;
-    //if (!gameState){
-      splashScreen = <SplashScreen onGameStart={this.handleNewState} isGameActive={this.getPlayerName() ? true : false} />;
-    //}
+    if (!gameState){
+      splashScreen = <SplashScreen onGameStart={this.handleNewState} isGameActive={false} />;
+    }
 
     let endScreen = null;
     //if (gameState && gameState.isGameOver) {
     //  endScreen = <EndScreen gameState={gameState} />;
     //}
 
-    let gameContainer = null;
-    //if (gameState){
-    //  gameContainer = <GameContainer gameState={gameState} onGameUpdate={this.handleNewState} />;
-    //}
-
-    //TODO: this looks terrible. probably can refactor out to another component so the whole thing doesn't try to render if gameState is null
-    let cards = this.state.gameState ? this.state.gameState.cards : null;
-    let boardCards = this.state.gameState ? this.state.gameState.cardsOnBoard : null;
-    let coins = this.state.gameState ? this.state.gameState.coins : null;
+    let defineGame = null;
+    if (gameState && gameState.nextActions === "updateGame"){
+      defineGame = <DefineGame gameName={this.getGameName()} playerName={this.getPlayerName()} onGameStart={this.handleNewState} />;
+    }
+    
     let victories = this.state.gameState ? this.state.gameState.victories : null;
     let defeats = this.state.gameState ? this.state.gameState.defeats : null;
-    let canBuild = this.state.gameState && this.state.gameState.nextActions.indexOf("build") >= 0;
-    let board = this.state.gameState ? this.state.gameState.boardName : null;
-    let boardSide = this.state.gameState ? this.state.gameState.boardSide : null;
-    let buildState = this.state.gameState ? this.state.gameState.buildState : null;
     let actions = this.state.gameState ? this.state.gameState.nextActions : null;
     let options = this.state.gameState ? this.state.gameState.options : null;
+    let waitFor = this.state.gameState ? this.state.gameState.waitFor : null;
+    let allVictoryPoints = this.state.gameState ? this.state.gameState.allVictoryPoints : null;
 
-    let ageCompletePopup = this.state.ageFinished ? <FinishAge victories={victories} defeats={defeats} startAge={this.startAge} playerName={this.getPlayerName()} gameName={this.getGameName()} /> : null;
+    let ageCompletePopup = this.state.ageFinished ? <FinishAge age={this.state.gameState.age} victories={victories} defeats={defeats} allVictoryPoints={allVictoryPoints} startAge={this.startAge} playerName={this.getPlayerName()} gameName={this.getGameName()} endGame={this.endGame} /> : null;
+
 
     return (    
       <div>
         <Header />
         {splashScreen}
-        {gameContainer}
+        {defineGame}
         {endScreen}
-        <button onClick={this.beginPlay}>Begin Play</button>
-        <button onClick={this.getOptions}>Get Options</button>
-        <button onClick={this.wait}>Wait</button>
-        <button onClick={this.finishAge}>Finish Age</button>
         
-        <div class="tray">
-          <h2>Coins</h2>{coins}
-          <h2>Victories</h2>{victories}
-          <h2>Defeats</h2>{defeats}
-        </div>
-        <Waiting isWaiting={this.waitingInterval != null}></Waiting>
+        <Waiting isWaiting={this.waitingInterval != null} waitFor={waitFor}></Waiting>
         {ageCompletePopup}
-        <Board cards={boardCards} board={board} buildState={buildState} boardSide={boardSide} />
-        <Hand cards={cards} canBuild={canBuild} handleAction={this.handleAction} actions={actions} />
-        <Choices options={options} action={actions} updateState={this.updateState} />
+        <Choices options={options} action={actions} updateState={this.updateState} playerName={this.getPlayerName()} gameName={this.getGameName()} />
+
+        <GameContainer gameState={gameState} handleAction={this.handleAction}/>
+                
       </div>
     );
   }

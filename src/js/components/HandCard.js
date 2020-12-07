@@ -38,6 +38,7 @@ class HandCard extends Component {
       }
 
     handlePlay(event){
+        //TODO: allow "undoing" an action if other players are still thinking
         event.preventDefault();
 
         fetch(Utility.apiServer() + "/play?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName() + "&cardName=" + event.target.dataset.cardname)
@@ -128,7 +129,7 @@ class HandCard extends Component {
             buttons.push(<br/>);
         }
         if (this.props.canBuild && actions.indexOf('build') > -1){
-            buttons.push(<button onClick={this.handleBuild} data-cardname={card.card.name}>Use to Build</button>);
+            buttons.push(<button onClick={this.handleBuild} data-cardname={card.card.name}>Build ({this.props.buildCost})</button>);
             buttons.push(<br/>);
         }
         if (actions.indexOf('discard') > -1){

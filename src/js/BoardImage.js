@@ -16,6 +16,22 @@ class BoardImage {
 
         return boards[boardName];
     }
+
+    static getResourceImage(resourceName){
+        var types = [];
+
+        if (types.length == 0) {
+            types["PAPER"] = "paper.png";
+            types["GLASS"] = "glass.png";
+            types["TEXTILE"] = "linen.png";
+            types["STONE"] = "stone.png";
+            types["BRICK"] = "clay.png";
+            types["WOOD"] = "wood.png";
+            types["ORE"] = "ore.png";
+        }
+
+        return types[resourceName];
+    }
 }
 
 export default BoardImage;

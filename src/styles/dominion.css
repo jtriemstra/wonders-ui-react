@@ -22,23 +22,31 @@ h1 {
 .card-set li {
     list-style-type: none;
     display:inline-block;
-    padding:22px;
+    padding:15px;
+    width: 12%;
+    max-width: 180px;
+    min-width: 140px;
 }
 .card-set-inactive li  {
     opacity: .5;
 }
 .card-set img {
-    border-radius:5px;
-    box-shadow: 0 0 12px 12px rgba(255, 255, 255, .7);
+    border-radius:10px;
+    box-shadow:6px 9px 12px rgba(31, 31, 31, .9), -1px -1px 4px lightgray;;
+    width: 100%;
+}
+img.board-card {
+    border-radius:10px;
+    
 }
 .card-set-container1 {
-    display:grid; 
+    /*display:grid; 
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap:1rem;
+    grid-gap:1rem;*/
     text-align: center;
     position: fixed;
     bottom: 20px;
-    z-index: 4;
+    z-index: 6;
     width:100%;
 }
 .card-set-container2 {
@@ -60,31 +68,56 @@ h1 {
 .card {
     position:relative;
 }
+.card button {
+    color: white;
+	font-size: 18px;
+	text-shadow: -1px 1px 2px #333,
+				  1px 1px 2px #333,
+				  1px -1px 2px #333,
+                  -1px -1px 2px #333;
+    background-color: transparent;
+    margin-top:3px;
+    box-shadow: 2px 3px 7px rgba(31, 31, 31, .7);
+}
+.hand-pass-direction {
+    text-align:center;
+    width:100%;
+}
+
 .button-container {
     position:absolute;
-    margin: 75px auto;
+    margin: 30% 23%;
     text-align: center;
-    width:80px;
+    width:110px;
     left:0;
     right:0;
 }
 .board-container {
     position:relative;
     text-align:center;
+    /*this 2 for board2 */
+    max-width:880px;
+    width:80%;
+    margin:auto;
+    /*padding-right:10%;*/
 }
 .board-card {
-    width:180px;
-    height:275px;
+    max-width:180px;
+    /*height:275px;*/
+    width:100%;
 }
 .board-element {
     position:absolute;
     top:0;
-    margin: 61px 0 0 35px;
+    /* remove for board2 margin: 61px 0 0 30px;*/
+    width:100%;
 }
 .board-stack {
-    position:relative;
+    /*position:relative; swap for board2 */
+    position:absolute;
     display:inline-block;
-    margin: 20px 0 0 20px;
+    /* remove for board2 margin: 20px 0 0 15px;*/
+    width:19%;
 }
 /*TODO: probably a better way to acheive this stacking, esp when more types get added*/
 .board-stack:nth-of-type(1){
@@ -105,19 +138,67 @@ h1 {
 .board-background {
     position:relative;
     z-index:5;
+    box-shadow: 4px 2px 4px rgba(31,31,31,.9), -1px -1px 4px lightgray;
+    width:100%;
 }
 .board-stages {
     text-align:left;
 }
 .board-stage-img {
     margin-top:-185px;
-    margin-left:62px;
+    margin-left:8.5%;
+    width:22%;
     z-index:-1;
+    opacity:.6;
 }
-.tray{
-    position:absolute;
+.two-stage-board .dummy-stage{
+    width:22%;
+    display:inline-block;
+    height:0px;
+    margin-left:7.5%;
+}
+.dummy-stage {
+    display:none;
+}
+.four-stage-board .board-stage-img {
+    margin-left:2.5%;
 }
 
+.tray{
+    position:absolute;
+    top:0;
+    right:0;
+}
+.tray .coins {
+    background-image: url('../images/icons/coin1.png');
+    background-size:100% 100%;
+    height:80px;
+    width:80px;
+    display:inline-block;
+}
+.tray .coin-wrapper {
+    position: absolute;
+    padding: 33px;
+    font-size: 40px;
+    font-family: 'cafeteriaBlack';
+}
+.tray .coin-background {
+    background-color:white;
+    width: 45px;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    border-radius: 22px;
+    opacity: .75;
+}
+.tray .victories, .tray .defeats {
+    display:inline-block;
+    opacity:.65;
+}
+.tray .victories img, .tray .defeats img {
+    width: 40px;
+    padding: 3px;
+}
 
 
 
@@ -132,17 +213,91 @@ h1 {
 }
 .popup-content {
     position:absolute;
-    left:15%;
-    padding: 20px;
-    background-color: white;
+    left:10%;
+    
+	padding: 4em;
+
     width:70%;
     top: 50%;
     transform: translateY(-50%);
-    text-align: center;
+    text-align: center;    
+}
+.popup-content p {
+    position: absolute;
+}
+.popup-content p, .popup-content > div {
+    margin: 0px;
+    left:0;
+    width:100%;
+    font-family: possumSaltare;
+    text-transform: uppercase;
+    font-size:36px;
+    transform: translateY(20%);
+}
+.parchment {
+    position: absolute;
+    display:flex;
+    box-shadow: 2px 3px 20px black, 0 0 125px #8f5922 inset;
+	background: #fffef0;
+    filter: url(#wavy2);
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+.splash-screen-column {
+    display:inline-block;
+    padding:20px;
+    position:relative;
+}
+.splash-screen-column .user-name {
+    padding-bottom: 5px;
+    display: block;
+}
+.splash-screen-wrapper {
+    position:relative;
 }
 
 
 
+
+
+.neighbor {
+    width:80px;
+}
+.neighbor-right {
+    position: absolute;
+    right:0;
+    top:0;
+}
+.neighbor img {
+    width:80px;
+}
+.neighbor .card-wrapper {
+    position: absolute;
+    margin-top:30px;
+    top:0;
+}
+.neighbor > .card-wrapper > .card-wrapper {
+    margin-top:40px;
+    opacity:.7;
+}
+.neighbor > .card-wrapper {
+    margin-top:100px;
+}
+.neighbor > .card-wrapper > img { 
+    width: 35px;
+}
+.neighbor .board-resource {
+    width:45px;
+}
+.neighbor-name {
+    position:absolute;
+    margin-top:80px;
+    top:0;
+    font-family: possumSaltare;
+    text-transform: uppercase;
+}
 
 .bank-quantity {
     display:block;
@@ -237,17 +392,32 @@ html, body, .game-container{
     position:relative;
 }
 button {
-    padding:2px;
+    padding:6px;
 }
 body {
-    background-image: url('../images/background2.jpg');
+    background-image: url('../images/Free-Photoshop-Purity-Wood-Texture.webp');
+    padding:0px;
 }
+body::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(143,89,34,0.35);
+    z-index:-1000;
+}
+@font-face {
+    font-family: possumSaltare;
+    src: url(fonts/PossumSaltareNF.ttf);
+  }
 
 @font-face {
-    font-family: optimusPrinceps;
-    src: url(fonts/OptimusPrincepsSemiBold.ttf);
+    font-family: cafeteriaBlack;
+    src: url(fonts/cafeteria-black.ttf);
   }
 
 h2, h3, h4, .player-list, .bank-quantity, .card-set-facedown, .user-name{
-    font-family: optimusPrinceps;
+    font-family: possumSaltare;
 }
