@@ -6,7 +6,18 @@ import BoardImage from "../BoardImage";
 class NeighborCards extends Component {
     constructor() {
       super();      
-      //TODO: add neighbor name
+      
+      this.state = {
+          expandNeighbor:false
+      }
+
+      this.toggleExpanded = this.toggleExpanded.bind(this);
+    }
+
+    toggleExpanded() {
+        let oldState = this.state.expandNeighbor;
+        this.setState({expandNeighbor:!oldState});
+        this.props.updateNeighbor(!oldState, this.props.right);
     }
 
     render() {
@@ -19,14 +30,17 @@ class NeighborCards extends Component {
         cards = <div class="card-wrapper">
                     <img className="board-resource" src={"images/resources/" + BoardImage.getResourceImage(this.props.data.boardResource)} />
                     <img className="board-resource" src={"images/icons/pyramid-stage" + this.props.data.stagesBuilt + ".png"} />
-                    {cards}
+                    {cards}                        
                 </div>;
         return (
-            <div class={this.props.right ? "neighbor neighbor-right" : "neighbor"}>
+            <div className={"neighbor " + (this.props.right ? " neighbor-right " : "") + (this.state.expandNeighbor ? " neighbor-expand " : "") }>
                 <div class="neighbor-name">
-                    {this.props.data.name}
+                    <a onClick={this.toggleExpanded}>{this.props.data.name}</a>
+                    <img className="neighbor-board" src={"images/boards/" + BoardImage.getImage(this.props.data.boardName, this.props.data.boardSide)} /> 
                 </div>
-                {cards}                
+                 
+                {cards}
+                          
             </div>
         );
     }

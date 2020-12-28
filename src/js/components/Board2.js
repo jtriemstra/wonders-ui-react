@@ -41,6 +41,9 @@ class Board2 extends Component {
         else if (board === "Giza" && boardSide === "B") {
             specialClass = "four-stage-board";
         }
+        if (this.props.faded){
+            specialClass = specialClass + " board-container-faded"
+        }
 
         if (this.props.cards){
             let cardCounts = [0,0,0,0,0,0];

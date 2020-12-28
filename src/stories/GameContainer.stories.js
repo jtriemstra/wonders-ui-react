@@ -37,16 +37,24 @@ test2.args = {
     nextActions:"startAge",
     message:null,
     cards:[],
-    cardsOnBoard:[{"name":"Marketplace","type":"commerce"},{"name":"Altar","type":"victory"},{"name":"Lumber Yard","type":"resource"},{"name":"Workshop","science":{"scienceOptions":["GEAR"]},"type":"science"},{"name":"Apothecary","science":{"scienceOptions":["COMPASS"]},"type":"science"}],
+    cardsOnBoard:[{"name":"Marketplace","type":"commerce"},{"name":"Altar","type":"victory"},{"name":"Lumber Yard","type":"resource"},{"name":"Workshop","science":{"scienceOptions":["GEAR"]},"type":"science"},{"name":"Apothecary","science":{"scienceOptions":["COMPASS"]},"type":"science"},{"name":"Lumber Yard","type":"resource"},{"name":"Lumber Yard","type":"resource"},{"name":"Lumber Yard","type":"resource"}],
     coins:1,
     buildState:[1,2,0],
     boardSide:"B",
     boardName:"Olympia",
     leftNeighbor:{boardResource:"GLASS",
-      cardsOnBoard:["West Trading Post","Stone Pit","Ore Vein","Baths","Theater","Clay Pool"]
+      name:"test",
+      cardsOnBoard:["West Trading Post","Stone Pit","Ore Vein","Baths","Theater","Clay Pool"],
+      stagesBuilt:1,
+      boardName:"Giza",
+      boardSide:"B"
     },
     rightNeighbor:{boardResource:"BRICK",
-      cardsOnBoard:["Timber Yard","Clay Pit","East Trading Post","Loom","Guard Tower","Stockade"]
+      name:"test",
+      cardsOnBoard:["Timber Yard","Clay Pit","East Trading Post","Loom","Guard Tower","Stockade"],
+      stagesBuilt:2,
+      boardName:"Ephesus",
+      boardSide:"A"
     },
     allDefeats:1,
     allVictories:{}

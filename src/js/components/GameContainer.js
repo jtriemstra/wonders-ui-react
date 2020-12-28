@@ -10,10 +10,22 @@ class GameContainer extends Component {
         super(props);   
         
         this.handleAction = this.handleAction.bind(this);
+        this.handleNeighborUpdate = this.handleNeighborUpdate.bind(this);
+        this.state = {neighborOpen:[false,false],
+                    faded:false};
     }
 
     handleAction(newState){
         this.props.handleAction(newState);
+    }
+    
+    handleNeighborUpdate(isOpen, isRight){
+        let oldState = this.state.neighborOpen;
+        oldState[(isRight ? 1 : 0)] = isOpen;
+        this.setState({
+            faded:(oldState[0] || oldState[1]),
+            neighborOpen:oldState 
+        });
     }
 
     render(){
@@ -40,10 +52,10 @@ class GameContainer extends Component {
         return (
             <div>
                 <Tray allVictories={victories} allDefeats={defeats} coins={coins} />
-                <NeighborCards data={leftNeighbor} right={false} />
-                <Board cards={boardCards} board={board} buildState={buildState} boardSide={boardSide} />
+                <NeighborCards data={leftNeighbor} right={false} updateNeighbor={this.handleNeighborUpdate} />
+                <Board cards={boardCards} board={board} buildState={buildState} boardSide={boardSide} faded={this.state.faded} />
                 <Hand cards={cards} canBuild={canBuild} handleAction={this.handleAction} actions={actions} buildCost={buildCost} currentAge={this.props.gameState.age} />
-                <NeighborCards data={rightNeighbor} right={true} />
+                <NeighborCards data={rightNeighbor} right={true} updateNeighbor={this.handleNeighborUpdate} />
             </div>
         );
         

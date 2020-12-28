@@ -43,9 +43,8 @@ img.board-card {
     /*display:grid; 
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap:1rem;*/
-    text-align: center;
     position: fixed;
-    bottom: 20px;
+    bottom: 0px;
     z-index: 6;
     width:100%;
 }
@@ -58,7 +57,12 @@ img.board-card {
     padding: 10px;
     display:block;
 }
-
+.card-set {
+    text-align: center;
+}
+.hand-hidden .card-set {
+    display:none;
+}
 .card-active img {
     box-shadow: 0px 7px 4px -2px gray;
 }
@@ -82,6 +86,10 @@ img.board-card {
 .hand-pass-direction {
     text-align:center;
     width:100%;
+    margin:0px;
+}
+.hand-toggle {
+    float:left;
 }
 
 .button-container {
@@ -100,6 +108,9 @@ img.board-card {
     width:80%;
     margin:auto;
     /*padding-right:10%;*/
+}
+.board-container-faded {
+    opacity:.5;
 }
 .board-card {
     max-width:180px;
@@ -283,7 +294,7 @@ img.board-card {
     opacity:.7;
 }
 .neighbor > .card-wrapper {
-    margin-top:100px;
+    margin-top:120px;
 }
 .neighbor > .card-wrapper > img { 
     width: 35px;
@@ -297,6 +308,34 @@ img.board-card {
     top:0;
     font-family: possumSaltare;
     text-transform: uppercase;
+}
+.neighbor-expand {
+    position:absolute;
+    top:0;
+    z-index:20;
+    width:120px;
+}
+.neighbor.neighbor-expand > .card-wrapper > .card-wrapper {
+    margin-top:40px;
+    opacity: 1;
+}
+.neighbor.neighbor-expand > .card-wrapper {
+    margin-top:240px;
+}
+.neighbor-expand img {
+    width:120px;
+}
+.neighbor-board {
+    display:none;
+}
+.neighbor-expand .neighbor-board {
+    display:block;
+    width:400px;
+    box-shadow: 4px 2px 4px rgba(31,31,31,.9), -1px -1px 4px lightgray;
+    position:absolute;
+}
+.neighbor-right.neighbor-expand .neighbor-board {
+    right:-100px;
 }
 
 .bank-quantity {
@@ -418,6 +457,6 @@ body::before {
     src: url(fonts/cafeteria-black.ttf);
   }
 
-h2, h3, h4, .player-list, .bank-quantity, .card-set-facedown, .user-name{
+h2, h3, h4, .player-list, .bank-quantity, .card-set-facedown, .user-name, .hand-toggle {
     font-family: possumSaltare;
 }
