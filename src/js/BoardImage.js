@@ -12,6 +12,7 @@ class BoardImage {
             boards["Halikarnassos"] = "halikarnassus" + boardSide + ".png";
             boards["Olympia"] = "olympia" + boardSide + ".png";
             boards["Rhodes"] = "rhodos" + boardSide + ".png";
+            boards["Rome"] = "roma" + boardSide + ".png";
         }  
 
         return boards[boardName];

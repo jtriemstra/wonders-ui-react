@@ -25,6 +25,7 @@ class Hand extends Component {
         let toggleHandText = this.state.visible ? "Hide Hand" : "Show Hand";
 
         if (this.props.cards){
+          
           for (var i=0; i<this.props.cards.length; i++){
             var card = this.props.cards[i];
             result.push(<HandCard card={card} canBuild={this.props.canBuild} handleAction={this.handleAction} actions={this.props.actions} buildCost={this.props.buildCost} />);

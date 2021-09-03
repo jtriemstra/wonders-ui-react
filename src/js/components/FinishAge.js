@@ -27,14 +27,15 @@ class FinishAge extends Component {
     }
 
     startAge(){
-        var myRequest = new Request(Utility.apiServer() + "/startAge?playerId=" + this.props.playerName + "&gameName=" + this.props.gameName);
+        // var myRequest = new Request(Utility.apiServer() + "/startAge?playerId=" + this.props.playerName + "&gameName=" + this.props.gameName);
 
-        fetch(myRequest, Utility.getRequestInit())
-        .then(res => res.json())
-        .then((result) => {
-            console.log(result);
-            this.props.startAge(result);
-        });
+        // fetch(myRequest, Utility.getRequestInit())
+        // .then(res => res.json())
+        // .then((result) => {
+        //     console.log(result);
+        //     this.props.startAge(result);
+        // });
+        this.props.startAge();
   }
 
   handleEnd(e) {

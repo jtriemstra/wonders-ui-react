@@ -24,7 +24,7 @@ class Board2 extends Component {
         
         if (this.props.buildState){
             for (var i=0; i<this.props.buildState.length; i++){
-                if (this.props.buildState[i] > 0){
+                if (this.props.buildState[i] && this.props.buildState[i] != ""){
                     builtStages.push(<img className="board-stage-img" src={"images/age" + this.props.buildState[i] + ".png"} />);
                 }
             }
@@ -88,6 +88,12 @@ class Board2 extends Component {
                 let marginTop = '' + -30 * cardCounts[3] + '%';
                 let marginLeft = '' + this.horizontalOffset(cardCounts[3]) + '%';
                 army = <>{army}<div className="board-element" style={{'margin-top':marginTop, 'margin-left':marginLeft, 'zIndex':-1 * cardCounts[3]}}><img className="board-card" src={"images/cards/" + CardImage.getImage(card.name)} /></div></>;
+            }
+            else if (card.type === "leader") {
+                cardCounts[1] = cardCounts[1] + 1;
+                let marginTop = '' + -30 * cardCounts[1] + '%';
+                let marginLeft = '' + this.horizontalOffset(cardCounts[1]) + '%';
+                commerce = <>{commerce}<div className="board-element" style={{'margin-top':marginTop, 'margin-left':marginLeft, 'zIndex':-1 * cardCounts[1]}}><img className="board-card" src={"images/cards/" + CardImage.getImage(card.name)} /></div></>;
             }
           }
 

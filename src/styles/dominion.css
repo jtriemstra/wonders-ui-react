@@ -161,6 +161,7 @@ img.board-card {
     width:22%;
     z-index:-1;
     opacity:.6;
+    border-radius:10px;
 }
 .two-stage-board .dummy-stage{
     width:22%;
@@ -269,6 +270,35 @@ img.board-card {
     position:relative;
 }
 
+
+.board-list .current-board{
+    position:absolute;
+    width:45%;
+    text-align: center;
+    padding-top:20px;
+    font-family: possumSaltare;
+    text-transform: uppercase;
+    font-size:36px;
+    font-weight: bold;
+    z-index:10;
+    color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  transform:scaleX(1.3);
+}
+.board-list .board-taken, .board-list .board-available {
+    width:45%;
+    display:inline-block;
+    padding:5px;
+}
+.board-list img {
+    width:100%;
+    box-shadow: 4px 2px 4px rgba(31,31,31,.9), -1px -1px 4px lightgray;
+}
+.board-list .board-taken img {
+    opacity:50%;
+}
 
 
 
@@ -434,19 +464,11 @@ button {
     padding:6px;
 }
 body {
-    background-image: url('../images/Free-Photoshop-Purity-Wood-Texture.webp');
+    
+    background: linear-gradient(rgba(143,89,34,0.35), rgba(143,89,34,0.35)), url('../images/Free-Photoshop-Purity-Wood-Texture.webp');
     padding:0px;
 }
-body::before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    background-color: rgba(143,89,34,0.35);
-    z-index:-1000;
-}
+
 @font-face {
     font-family: possumSaltare;
     src: url(fonts/PossumSaltareNF.ttf);

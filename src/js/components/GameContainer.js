@@ -34,7 +34,7 @@ class GameContainer extends Component {
             return null;
         }
 
-        let canBuild = this.props.gameState.nextActions.indexOf("build") >= 0;
+        let canBuild = this.props.gameState.nextActions && this.props.gameState.nextActions.indexOf("build") >= 0;
         let board = this.props.gameState.boardName;
         let boardSide = this.props.gameState.boardSide;
         let buildState = this.props.gameState.buildState;

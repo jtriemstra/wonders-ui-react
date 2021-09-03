@@ -9,8 +9,8 @@ class Waiting extends Component {
 
     render() {
         let message = "";
-        if (this.props.waitFor === "START") message = " for game to start";
-        if (this.props.waitFor === "PLAYERS") message = " for all players to join";
+        //if (this.props.waitFor === "START") message = " for game to start";
+        //if (this.props.waitFor === "PLAYERS") message = " for all players to join";
 
         if (this.props.isWaiting){
             return (

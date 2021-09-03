@@ -28,3 +28,11 @@ test2.args = {
   actions:"play;discard;build",
   currentAge:2
 };
+
+export const test3 = Template.bind({});
+test3.args = {
+  cards:[{"status":"OK","card":{"name":"Clay Pit","type":"resource"},"cost":0,"leftCost":0,"rightCost":0, "costOptions":[]},{"status":"OK","card":{"name":"East Trading Post","type":"commerce"},"cost":0,"leftCost":0,"rightCost":0, "costOptions":[{"left":1,"right":0},{"left":0,"right":2}]},{"status":"OK","card":{"name":"Marketplace","type":"commerce"},"cost":0,"leftCost":0,"rightCost":0},{"status":"OK","card":{"name":"Theater","type":"victory"},"cost":0,"leftCost":0,"rightCost":0},{"status":"OK","card":{"name":"Clay Pool","type":"resource"},"cost":0,"leftCost":0,"rightCost":0},{"status":"ERR_RESOURCE","card":{"name":"Barracks","type":"army"},"cost":0,"leftCost":0,"rightCost":0},{"status":"OK","card":{"name":"Lumber Yard","type":"resource"},"cost":0,"leftCost":0,"rightCost":0}],
+  canBuild:true,
+  actions:"play;discard;build",
+  currentAge:2
+};

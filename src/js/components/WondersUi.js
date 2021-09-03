@@ -10,35 +10,43 @@ import Waiting from "./Waiting";
 import FinishAge from "./FinishAge";
 import Choices from "./Choices";
 import DefineGame from "./DefineGame";
-import Tray from "./Tray";
+import ChooseBoard from "./ChooseBoard";
+import LeaderPopup from "./LeaderPopup";
 
 class WondersUi extends Component {
   constructor(props) {
     super();
-
-    
 
     this.handleNewState = this.handleNewState.bind(this);
     this.getOptions = this.getOptions.bind(this);
     this.beginPlay = this.beginPlay.bind(this);
     this.wait = this.wait.bind(this);
     this.startAge = this.startAge.bind(this);
+    this.startAgeRequest = this.startAgeRequest.bind(this);
     this.finishAge = this.finishAge.bind(this);
+    this.showLeaders = this.showLeaders.bind(this);
     this.handleAction = this.handleAction.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.listBoards = this.listBoards.bind(this);
+    this.closePopup = this.closePopup.bind(this);
+    this.listBoardsClearTimeout = this.listBoardsClearTimeout.bind(this);
 
     if (props && props.gameState){
       console.log("props found");
       this.state = {
         gameState: props.gameState,
-        ageFinished: false
+        ageFinished: false,
+        leaderPopup: props.gameState.leaderPopup
       };      
     }
     else {
       console.log('no props found');
       this.state = {
         gameState: null,
-        ageFinished: false
+        ageFinished: false,
+        boardList: null,
+        listBoardTimeout:null,
+        lastAgeFinished: 1
       };
     }
   }
@@ -128,7 +136,7 @@ class WondersUi extends Component {
     if (newState.waitFor) mergedState.waitFor = newState.waitFor;
     if (newState.leftNeighbor) mergedState.leftNeighbor = newState.leftNeighbor;
     if (newState.rightNeighbor) mergedState.rightNeighbor = newState.rightNeighbor;
-    if (newState.age) mergedState.age = newState.age;
+    if ('age' in newState) mergedState.age = newState.age;
     if (newState.buildCost != undefined) mergedState.buildCost = newState.buildCost;
     if (newState.options) {
       mergedState.options = newState.options;    
@@ -137,45 +145,59 @@ class WondersUi extends Component {
       mergedState.options = null;
     }
     if (newState.allVictoryPoints) mergedState.allVictoryPoints = newState.allVictoryPoints;
+    if (newState.newLeaders) mergedState.newLeaders = newState.newLeaders;
 
     this.setState({gameState: mergedState});
+    if (!newState.boards) {
+      this.setState({boardList:null});
+    }
 
     console.log(newState.nextActions);
     if (newState.nextActions === "wait"){
-      if (!this.waitingInterval){
+      //if (!this.waitingInterval){
         console.log("waiting");
         this.startWaiting();
-      }
+      //}
     }
     else {
       console.log("done waiting");
-      this.stopWaiting();
+      //this.stopWaiting();
       if (newState.nextActions === "options"){
         this.getOptions();
       }
       else if (newState.nextActions === "getEndOfAge"){
         this.finishAge();
       }
+      else if (newState.nextActions === "showLeaders"){
+        this.showLeaders();
+      }
       else if (newState.nextActions === "finishGame"){
         this.finishGame();
       }
       else if (newState.nextActions === "start"){
         this.beginPlay();
+      }
+      else if (newState.nextActions === "startAge" /*&& !this.state.ageFinished*/){ //TODO: this second condition is pretty fragile, relies on other code to set the finished state before calling updateState()
+        this.startAgeRequest();
+      }
+      else if (newState.nextActions && newState.nextActions.indexOf("listBoards") >= 0 ){
+        let t = setTimeout(() => this.listBoards(), 3000);
+        this.setState({listBoardTimeout:t});
       }      
     }
   }
 
   startWaiting(){
-    this.waitingInterval = setInterval(() => {
+    setTimeout(() => {
         console.log("calling wait");
         this.wait();            
-    }, 2000);
+    }, 3000);
   }
 
-  stopWaiting(){
-    clearInterval(this.waitingInterval);
-    this.waitingInterval = null;
-  }
+  // stopWaiting(){
+  //   clearInterval(this.waitingInterval);
+  //   this.waitingInterval = null;
+  // }
 
   getOptions(){
          var myRequest = new Request(Utility.apiServer() + "/options?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
@@ -199,6 +221,24 @@ class WondersUi extends Component {
         });
   }
 
+  //TODO: unify this with "options"?
+  listBoards(){
+        var myRequest = new Request(Utility.apiServer() + "/listBoards?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
+
+        fetch(myRequest, Utility.getRequestInit())
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            this.setState({boardList:result.boards});
+            this.updateState(result);
+        });
+  }
+
+  listBoardsClearTimeout() {
+    clearTimeout(this.state.listBoardTimeout);
+    this.setState({listBoardTimeout:null});
+  }
+
   wait(){
     console.log("in wait");
         var myRequest = new Request(Utility.apiServer() + "/wait?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
@@ -218,30 +258,61 @@ class WondersUi extends Component {
         .then(res => res.json())
         .then((result) => {
             console.log(result);
+            this.setState({ageFinished:true, lastAgeFinished:result.age});            
             this.updateState(result);
-            this.setState({ageFinished:true});
         });
   }
   
-  finishGame(){
-    var myRequest = new Request(Utility.apiServer() + "/finishGame?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
+  showLeaders(){
+    var myRequest = new Request(Utility.apiServer() + "/showLeaders?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
 
     fetch(myRequest, Utility.getRequestInit())
     .then(res => res.json())
     .then((result) => {
         console.log(result);
         this.updateState(result);
-        this.setState({ageFinished:true});
+        this.setState({leaderPopup:true});        
+    });
+}
+
+finishGame(){
+    var myRequest = new Request(Utility.apiServer() + "/finishGame?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
+
+    fetch(myRequest, Utility.getRequestInit())
+    .then(res => res.json())
+    .then((result) => {
+        console.log(result);
+        this.setState({ageFinished:true, lastAgeFinished:result.age});
+        this.updateState(result);
     });
   }
 
+  startAgeRequest(){
+    var myRequest = new Request(Utility.apiServer() + "/startAge?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName());
+
+    fetch(myRequest, Utility.getRequestInit())
+    .then(res => res.json())
+    .then((result) => {
+        console.log(result);
+        this.startAge(result);
+    });
+}
+
   startAge(result){
-    this.updateState(result);
-    this.setState({ageFinished:false});
+    if (!result) {
+      this.setState({ageFinished:false});
+    }
+    if (result) {
+      this.updateState(result);
+    }
+  }
+
+  closePopup() {
+    this.setState({leaderPopup:false});
   }
 
   render() {
-    console.log("render");
+    
     const gameState = this.state.gameState;
 
     let splashScreen = null;
@@ -266,21 +337,25 @@ class WondersUi extends Component {
     let waitFor = this.state.gameState ? this.state.gameState.waitFor : null;
     let allVictoryPoints = this.state.gameState ? this.state.gameState.allVictoryPoints : null;
 
-    let ageCompletePopup = this.state.ageFinished ? <FinishAge age={this.state.gameState.age} victories={victories} defeats={defeats} allVictoryPoints={allVictoryPoints} startAge={this.startAge} playerName={this.getPlayerName()} gameName={this.getGameName()} endGame={this.endGame} /> : null;
-
+    let ageCompletePopup = this.state.ageFinished ? <FinishAge age={this.state.lastAgeFinished} victories={victories} defeats={defeats} allVictoryPoints={allVictoryPoints} startAge={this.startAge} playerName={this.getPlayerName()} gameName={this.getGameName()} endGame={this.endGame} /> : null;
+    let tempDom = this.state.boardList != null ? <ChooseBoard timeoutClear={this.listBoardsClearTimeout} boardUses={this.state.boardList} currentBoard={this.state.gameState.boardName} currentSide={this.state.gameState.boardSide} onGameStart={this.handleNewState} playerName={this.getPlayerName()} gameName={this.getGameName()} /> : <GameContainer gameState={gameState} handleAction={this.handleAction}/>;
+    console.log(this.state);
+    let leaderPopup = this.state.leaderPopup ? <LeaderPopup close={this.closePopup} newLeaders={this.state.gameState.newLeaders} /> : null;
 
     return (    
       <div>
         <Header />
         {splashScreen}
         {defineGame}
-        {endScreen}
         
-        <Waiting isWaiting={this.waitingInterval != null} waitFor={waitFor}></Waiting>
+        {endScreen}
+
+        <Waiting isWaiting={gameState && gameState.nextActions === "wait"} waitFor={waitFor}></Waiting>
         {ageCompletePopup}
+        {leaderPopup}
         <Choices options={options} action={actions} updateState={this.updateState} playerName={this.getPlayerName()} gameName={this.getGameName()} />
 
-        <GameContainer gameState={gameState} handleAction={this.handleAction}/>
+        {tempDom}        
                 
       </div>
     );

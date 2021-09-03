@@ -56,3 +56,22 @@ test2.args = {
     options:["TABLET", "COMPASS", "GEAR"]
   }
 };
+export const test3 = Template.bind({});
+test3.args = {
+  gameState:{
+    boardName: "Rome",
+    boardSide: "A",
+    leaderPopup:true,
+    nextActions:"wait",
+    message:null,
+    age:1,
+    cardsOnBoard:[{"name":"Zenobia","type":"leader"},{"name":"Clay Pit","type":"resource"},{"name":"Timber Yard","type":"resource"}],
+    coins:9,
+    leftNeighbor:{boardResource:"TEXTILE",cardsOnBoard:["Phidias","Lumber Yard","Altar","Ore Vein"],
+      name:"qwer",stagesBuilt:0,boardName:"Halikarnassos",boardSide:"B"},
+    rightNeighbor:{boardResource:"PAPER",cardsOnBoard:["Justinian","Theater","Clay Pool","Press"],
+      name:"zxcv",stagesBuilt:0,boardName:"Ephesus",boardSide:"B"
+    },
+    newLeaders:[{name:"Nebuchadnezzar",type:"leader"},{name:"Xenophon",type:"leader"},{name:"Nefertiti",type:"leader"},{name:"Midas",type:"leader"}]
+  }
+};
