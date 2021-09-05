@@ -31,12 +31,13 @@ class Hand extends Component {
             result.push(<HandCard card={card} canBuild={this.props.canBuild} handleAction={this.handleAction} actions={this.props.actions} buildCost={this.props.buildCost} />);
           }
         }
+        // toggle hidden for now, current styles for hand make it pointless
         return (<div className={"card-set-container1 " + (this.state.visible ? "" : " hand-hidden")}>
                    
                     <div className="card-set">
                         <ul className="card-set-active">{result}</ul>
                     </div>
-                    <a onClick={this.handleToggle} className="hand-toggle">{toggleHandText}</a>
+                    <a onClick={this.handleToggle} className="hand-toggle">{toggleHandText}</a> 
                     <h2 class="hand-pass-direction">{handPassDirection}</h2>
                 </div>);
     }

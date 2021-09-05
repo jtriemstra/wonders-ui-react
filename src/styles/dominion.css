@@ -99,6 +99,7 @@ img.board-card {
 .hand-toggle {
     position: absolute;
     top: 90px;
+    display: none;
 }
 
 .button-container {
