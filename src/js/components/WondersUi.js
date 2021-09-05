@@ -146,6 +146,7 @@ class WondersUi extends Component {
     }
     if (newState.allVictoryPoints) mergedState.allVictoryPoints = newState.allVictoryPoints;
     if (newState.newLeaders) mergedState.newLeaders = newState.newLeaders;
+    if (newState.discards) mergedState.discards = newState.discards;
 
     this.setState({gameState: mergedState});
     if (!newState.boards) {
@@ -191,7 +192,7 @@ class WondersUi extends Component {
     setTimeout(() => {
         console.log("calling wait");
         this.wait();            
-    }, 3000);
+    }, 1000);
   }
 
   // stopWaiting(){
@@ -344,19 +345,20 @@ finishGame(){
 
     return (    
       <div>
-        <Header />
+        <Header gameName={this.getGameName()} />
         {splashScreen}
         {defineGame}
         
         {endScreen}
 
-        <Waiting isWaiting={gameState && gameState.nextActions === "wait"} waitFor={waitFor}></Waiting>
+        
         {ageCompletePopup}
         {leaderPopup}
         <Choices options={options} action={actions} updateState={this.updateState} playerName={this.getPlayerName()} gameName={this.getGameName()} />
 
         {tempDom}        
-                
+        <Waiting isWaiting={gameState && gameState.nextActions === "wait"} waitFor={waitFor}></Waiting>
+
       </div>
     );
   }

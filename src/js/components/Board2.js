@@ -14,7 +14,7 @@ class Board2 extends Component {
     }
 
     horizontalOffset(numCards) {
-        return -22 + -14 * (numCards - 1);
+        return -16 + -14 * (numCards - 1);
     }
 
     render() {
@@ -97,8 +97,8 @@ class Board2 extends Component {
             }
           }
 
-          marginTop = '' + (61 * Math.max(...cardCounts)) + 'px';
-          marginLeft = '' + (15 + cardCounts[0] - 1) + '%';
+          marginTop = '' + (45 + (50 * Math.max(...cardCounts))) + 'px';
+          marginLeft = '' + (11 + cardCounts[0] - 1) + '%';
         }
         
         return (

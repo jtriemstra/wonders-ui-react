@@ -38,15 +38,28 @@ class Tray extends Component {
     }
 
     render() {
+        let discards = [];
+        if (this.props.discards) {
+            discards.push(<span>Discards<br></br></span>);
+            for(var i=0; i<3; i++){
+                for (var j=0; j<this.props.discards[i]; j++){
+                    discards.push(<img src={"../../images/cards/age" + (i+1) + ".png"} />);
+                }
+            }
+        }
+
         return (
             <div class="tray">
-            <div class="coins">
-                <span class="coin-wrapper">
-                    <span class="coin-background">{this.props.coins}</span>
-                </span>
-            </div>
-            {this.renderVictories()}
-            {this.renderDefeats()}
+                <div class="discards">
+                    {discards}
+                </div>        
+                <div class="coins">
+                    <span class="coin-wrapper">
+                        <span class="coin-background">{this.props.coins}</span>
+                    </span>
+                </div>
+                {this.renderVictories()}
+                {this.renderDefeats()}
             </div>
         );
     }

@@ -5,6 +5,7 @@ class Utility {
         }
         else {
             return "http://localhost:8080";
+            //return "http://jtriemstrawondersapi-env.eba-tbpj7hm2.us-east-2.elasticbeanstalk.com";
             //return "http://jtriemstradominionapi-env.eba-wcyvhkpu.us-east-2.elasticbeanstalk.com";
         }        
     }

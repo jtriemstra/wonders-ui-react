@@ -28,7 +28,7 @@ class NeighborCards extends Component {
             cards = <div class="card-wrapper"><img src={"images/cards/" + CardImage.getImage(this.props.data.cardsOnBoard[i])}  />{cards}</div>;
         }
         cards = <div class="card-wrapper">
-                    <img className="board-resource" src={"images/resources/" + BoardImage.getResourceImage(this.props.data.boardResource)} />
+                    <img className="board-resource" src={"images/resources/" + BoardImage.getResourceImage(this.props.data.boardResource, this.props.data.boardName, this.props.data.boardSide)} />
                     <img className="board-resource" src={"images/icons/pyramid-stage" + this.props.data.stagesBuilt + ".png"} />
                     {cards}                        
                 </div>;

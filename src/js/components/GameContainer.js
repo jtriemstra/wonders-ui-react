@@ -4,6 +4,7 @@ import Tray from "./Tray";
 import Hand from "./Hand";
 import Board from "./Board2";
 import NeighborCards from "./NeighborCards"
+import Notifications from "./Notifications"
 
 class GameContainer extends Component {
     constructor(props) {
@@ -51,11 +52,12 @@ class GameContainer extends Component {
 
         return (
             <div>
-                <Tray allVictories={victories} allDefeats={defeats} coins={coins} />
+                <Tray allVictories={victories} allDefeats={defeats} coins={coins} discards={this.props.gameState.discards} />
                 <NeighborCards data={leftNeighbor} right={false} updateNeighbor={this.handleNeighborUpdate} />
+                <NeighborCards data={rightNeighbor} right={true} updateNeighbor={this.handleNeighborUpdate} />
                 <Board cards={boardCards} board={board} buildState={buildState} boardSide={boardSide} faded={this.state.faded} />
                 <Hand cards={cards} canBuild={canBuild} handleAction={this.handleAction} actions={actions} buildCost={buildCost} currentAge={this.props.gameState.age} />
-                <NeighborCards data={rightNeighbor} right={true} updateNeighbor={this.handleNeighborUpdate} />
+                <Notifications />
             </div>
         );
         

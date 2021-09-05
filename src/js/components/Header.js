@@ -12,7 +12,7 @@ class Header extends Component {
     handleEnd(e) {
         if (e) e.preventDefault();
 
-        fetch(Utility.apiServer() + "/endGame")
+        fetch(Utility.apiServer() + "/endGame?gameName=" +this.props.gameName)
         .then(res => {
             if (res.ok) { return true; }
             else { res.text().then(text => {

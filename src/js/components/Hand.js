@@ -21,8 +21,8 @@ class Hand extends Component {
 
     render() {
         var result = [];
-        let handPassDirection = this.props.currentAge % 2 == 0 ? "<==" : "==>";
-        let toggleHandText = this.state.visible ? "Hide Hand" : "Show Hand";
+        let handPassDirection = this.props.currentAge % 2 == 0 ? "<== Pass Cards" : "Pass Cards ==>";
+        let toggleHandText = this.state.visible ? <>Hide<br></br> Hand</> : <>Show<br></br>Hand</>;
 
         if (this.props.cards){
           

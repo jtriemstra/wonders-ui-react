@@ -66,9 +66,12 @@ class FinishAge extends Component {
 
             var result = [];
             if (gameComplete) {
+                let total = 0;
                 for (const [key, value] of Object.entries(this.props.allVictoryPoints)) {
                     result.push(<div>{key}: {value}</div>);
+                    total = total + value
                 }
+                result.push(<div>Total: {total}</div>);
             }
 
             return (

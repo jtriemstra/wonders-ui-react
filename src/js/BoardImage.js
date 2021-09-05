@@ -18,7 +18,7 @@ class BoardImage {
         return boards[boardName];
     }
 
-    static getResourceImage(resourceName){
+    static getResourceImage(resourceName, boardName, boardSide){
         var types = [];
 
         if (types.length == 0) {
@@ -31,7 +31,14 @@ class BoardImage {
             types["ORE"] = "ore.png";
         }
 
-        return types[resourceName];
+        if (types[resourceName]) {
+            return types[resourceName];
+        }
+
+        if (boardName === "Rome" && boardSide === "B") {
+            return "leader.png";
+        }
+        
     }
 }
 

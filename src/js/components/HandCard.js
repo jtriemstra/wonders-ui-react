@@ -197,8 +197,16 @@ class HandCard extends Component {
                 buttons.push(<button onClick={(event) => this.handlePlay(event, card.costOptions)} data-cardname={card.card.name}>Play ({cardCostDisplay})</button>);
                 buttons.push(<br/>);
             }
+            else if (actions.indexOf('play') > -1 && actions.indexOf('play') != actions.indexOf('playFree')){
+                buttons.push(<button className="invalid-action" data-cardname={card.card.name}>())</button>);
+                buttons.push(<br/>);
+            }
             if (this.props.canBuild && actions.indexOf('build') > -1){
                 buttons.push(<button onClick={(event) => this.handleBuild(event, buildCost.costOptions)} data-cardname={card.card.name}>Build ({buildCostDisplay})</button>);
+                buttons.push(<br/>);
+            }
+            else if (actions.indexOf('discard') > -1) {
+                buttons.push(<button className="invalid-action" data-cardname={card.card.name}>()</button>);
                 buttons.push(<br/>);
             }
             if (actions.indexOf('discard') > -1){
