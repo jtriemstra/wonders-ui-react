@@ -1,8 +1,8 @@
 class Utility {
     static apiServer() {
         if (process.env.APP_ENV === 'prod'){
-            //return "https://wonders-api.herokuapp.com/";
-            return "http://jtriemstrawondersapi-env.eba-tbpj7hm2.us-east-2.elasticbeanstalk.com";
+            return "https://wonders-api.herokuapp.com/";
+            //return "http://jtriemstrawondersapi-env.eba-tbpj7hm2.us-east-2.elasticbeanstalk.com";
         }
         else {
             return "http://localhost:8080";
