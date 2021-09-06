@@ -182,7 +182,7 @@ class WondersUi extends Component {
         this.startAgeRequest();
       }
       else if (newState.nextActions && newState.nextActions.indexOf("listBoards") >= 0 ){
-        let t = setTimeout(() => this.listBoards(), 3000);
+        let t = setTimeout(() => this.listBoards(), 500);
         this.setState({listBoardTimeout:t});
       }      
     }
