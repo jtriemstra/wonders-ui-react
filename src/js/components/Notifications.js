@@ -12,11 +12,12 @@ class Notifications extends Component {
     }
 
     componentDidMount() {
+        console.log("notifications mounted");
         setTimeout(this.getList, 2000);
     }
 
     getList() {
-        
+        console.log("notifications getList()");
         fetch(Utility.apiServer() + "/notifications?lastId=" + this.state.id) 
         .then(res => res.json())
         .then((result) => {
