@@ -163,13 +163,14 @@ class HandCard extends Component {
                 let minCost = 100;
                 let maxCost = -1;
                 for (var i=0; i<card.costOptions.length; i++) {
-                    if (card.costOptions[i].left + card.costOptions[i].right < minCost) minCost = card.costOptions[i].left + card.costOptions[i].right;
-                    if (card.costOptions[i].left + card.costOptions[i].right > maxCost) maxCost = card.costOptions[i].left + card.costOptions[i].right;
+                    let thisCost = (card.costOptions[i].knownCostsBySource.Left ? card.costOptions[i].knownCostsBySource.Left : 0) + (card.costOptions[i].knownCostsBySource.Right ? card.costOptions[i].knownCostsBySource.Right : 0);
+                    if (thisCost < minCost) minCost = thisCost;
+                    if (thisCost > maxCost) maxCost = thisCost;
                 }
                 cardCostDisplay = "" + minCost + " - " + maxCost;
             }
             else {
-                cardCostDisplay = card.cost;
+                cardCostDisplay = card.bankCost;
             }
 
             let buildCostDisplay = "";
@@ -179,8 +180,9 @@ class HandCard extends Component {
                     let minCost = 100;
                     let maxCost = -1;
                     for (var i=0; i<buildCost.costOptions.length; i++) {
-                        if (buildCost.costOptions[i].left + buildCost.costOptions[i].right < minCost) minCost = buildCost.costOptions[i].left + buildCost.costOptions[i].right;
-                        if (buildCost.costOptions[i].left + buildCost.costOptions[i].right > maxCost) maxCost = buildCost.costOptions[i].left + buildCost.costOptions[i].right;
+                        let thisCost = (buildCost.costOptions[i].knownCostsBySource.Left ? buildCost.costOptions[i].knownCostsBySource.Left : 0) + (buildCost.costOptions[i].knownCostsBySource.Right ? buildCost.costOptions[i].knownCostsBySource.Right : 0);
+                        if (thisCost < minCost) minCost = thisCost;
+                        if (thisCost > maxCost) maxCost = thisCost;
                     }
                     buildCostDisplay = "" + minCost + " - " + maxCost;
                 }
@@ -212,13 +214,15 @@ class HandCard extends Component {
             if (actions.indexOf('discard') > -1){
                 buttons.push(<button onClick={this.handleDiscard} data-cardname={card.card.name}>Discard</button>);
             }
-            if (actions.indexOf('keepLeader') > -1){
+            if (card.status === "OK" && actions.indexOf('keepLeader') > -1){
                 buttons.push(<button onClick={this.handleKeepLeader} data-cardname={card.card.name}>Keep</button>);
             }
         }    
         else if (this.state.costMode === "play") {
             for (var i=0; i<this.state.cardCostOptions.length; i++){
-                let costDisplay = "<- " + this.state.cardCostOptions[i].left + " | " + this.state.cardCostOptions[i].right + " ->";
+                let leftCost = this.state.cardCostOptions[i].knownCostsBySource.Left ? this.state.cardCostOptions[i].knownCostsBySource.Left : 0;
+                let rightCost = this.state.cardCostOptions[i].knownCostsBySource.Right ? this.state.cardCostOptions[i].knownCostsBySource.Right : 0;
+                let costDisplay = "<- " + leftCost + " | " + rightCost + " ->";
                 let thisIndex = i;
                 buttons.push(<button onClick={(event) => this.handlePlay(event, null, thisIndex)} data-cardname={card.card.name}>{costDisplay}</button>);
                 buttons.push(<br/>);
@@ -226,7 +230,9 @@ class HandCard extends Component {
         }   
         else if (this.state.costMode === "build") {
             for (var i=0; i<this.state.cardCostOptions.length; i++){
-                let costDisplay = "<- " + this.state.cardCostOptions[i].left + " | " + this.state.cardCostOptions[i].right + " ->";
+                let leftCost = this.state.cardCostOptions[i].knownCostsBySource.Left ? this.state.cardCostOptions[i].knownCostsBySource.Left : 0;
+                let rightCost = this.state.cardCostOptions[i].knownCostsBySource.Right ? this.state.cardCostOptions[i].knownCostsBySource.Right : 0;
+                let costDisplay = "<- " + leftCost + " | " + rightCost + " ->";
                 let thisIndex = i;
                 buttons.push(<button onClick={(event) => this.handleBuild(event, null, thisIndex)} data-cardname={card.card.name}>{costDisplay}</button>);
                 buttons.push(<br/>);

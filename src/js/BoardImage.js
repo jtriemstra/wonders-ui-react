@@ -36,9 +36,11 @@ class BoardImage {
         }
 
         if (boardName === "Rome" && boardSide === "B") {
-            return "leader.png";
+            return "leader-disc.png";
         }
-        
+        if (boardName === "Rome" && boardSide === "A") {
+            return "leader-free.png";
+        }
     }
 }
 
