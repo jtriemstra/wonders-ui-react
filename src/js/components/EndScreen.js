@@ -12,7 +12,7 @@ class EndScreen extends Component {
     handleEndGame(e) {
         if (e) e.preventDefault();
 
-        fetch(Utility.apiServer() + "/end")
+        fetch(Utility.apiServer() + "/endGame?gameName=" +this.props.gameName)
         .then(res => {
             if (res.ok) { return true; }
             else { res.text().then(text => {

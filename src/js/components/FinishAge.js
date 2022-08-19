@@ -41,7 +41,7 @@ class FinishAge extends Component {
   handleEnd(e) {
         if (e) e.preventDefault();
 
-        fetch(Utility.apiServer() + "/endGame")
+        fetch(Utility.apiServer() + "/endGame?gameName=" +this.props.gameName)
         .then(res => {
             if (res.ok) { return true; }
             else { res.text().then(text => {
@@ -61,7 +61,7 @@ class FinishAge extends Component {
             let victories = this.props.victories ? this.props.victories : 0;
             let defeats = this.props.defeats ? this.props.defeats : 0;
             let gameComplete = this.props.allVictoryPoints != undefined;
-            let nextAgeButton = gameComplete ? null : <button onClick={this.startAge}>Start Age</button>;
+            let nextAgeButton = gameComplete ? null : <button onClick={this.startAge}>Start Next Age</button>;
             let endGameButton = gameComplete ? <button onClick={this.handleEnd}>End Game</button> : null;
 
             var result = [];

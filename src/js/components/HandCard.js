@@ -167,7 +167,12 @@ class HandCard extends Component {
                     if (thisCost < minCost) minCost = thisCost;
                     if (thisCost > maxCost) maxCost = thisCost;
                 }
-                cardCostDisplay = "" + minCost + " - " + maxCost;
+                if (minCost === maxCost) {
+					cardCostDisplay = "" + minCost;
+				}
+				else {
+					cardCostDisplay = "" + minCost + " - " + maxCost;	
+				}
             }
             else {
                 cardCostDisplay = card.bankCost;
@@ -184,10 +189,15 @@ class HandCard extends Component {
                         if (thisCost < minCost) minCost = thisCost;
                         if (thisCost > maxCost) maxCost = thisCost;
                     }
-                    buildCostDisplay = "" + minCost + " - " + maxCost;
+                    if (minCost === maxCost) {
+						buildCostDisplay = "" + minCost;
+					}
+					else {
+						buildCostDisplay = "" + minCost + " - " + maxCost;	
+					}
                 }
                 else {
-                    buildCostDisplay = buildCost.cost;
+                    buildCostDisplay = buildCost.stage.coinCost;
                 }
             }
             //TODO: how can I make this more dynamic? make playFree act like play from the FE perspective?
@@ -242,7 +252,10 @@ class HandCard extends Component {
         return (
             <li className={cardClass + " card"}>
                 <div class="button-container">{buttons}</div>
-                <img src={"images/cards/" + CardImage.getImage(card.card.name)} />                
+                <img src={"images/cards/" + CardImage.getImage(card.card.name)} />   
+                <p class="card-help">
+                	{card.card.help}
+                </p>             
             </li>
         )
     }

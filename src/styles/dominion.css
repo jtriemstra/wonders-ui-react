@@ -73,6 +73,7 @@ img.board-card {
 }
 .card {
     position:relative;
+    vertical-align: top;
 }
 .card button {
     color: white;
@@ -88,6 +89,21 @@ img.board-card {
 .card button.invalid-action {
     opacity:0;
 }
+.card-set .card-help {
+	display:none;
+	white-space:normal;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	text-align: left;
+}
+.help-enabled .card-set .card-help {
+	display:block;
+	white-space:normal;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	text-align: left;
+}
+
 .hand-pass-direction {
     text-align:center;
     width:100%;
@@ -512,6 +528,11 @@ img.board-card {
     width:15%;
     margin: 0 auto;
     display: block;
+}
+
+.enable-help {
+	position:absolute;
+	right:0px;
 }
 
 html, body, .game-container{
