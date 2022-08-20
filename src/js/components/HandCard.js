@@ -12,6 +12,7 @@ class HandCard extends Component {
       this.handleBuild = this.handleBuild.bind(this);
       this.handleDiscard = this.handleDiscard.bind(this);
       this.handleKeepLeader = this.handleKeepLeader.bind(this);
+      this.handleTradeCancel = this.handleTradeCancel.bind(this);
 
       this.state = {cardCostOptions:null, costMode:null};
     }
@@ -173,6 +174,13 @@ class HandCard extends Component {
             }
         });
     }
+    
+    handleTradeCancel(event) {
+		event.preventDefault();
+		
+		this.setState({"cardCostOptions":null, "costMode":null});
+		this.props.handleCostOptions(-1);
+	}
 
     render() {
         var card = this.props.card;
@@ -259,6 +267,7 @@ class HandCard extends Component {
                 buttons.push(<button onClick={(event) => this.handlePlay(event, null, thisIndex)} data-cardname={card.card.name}>{costDisplay}</button>);
                 buttons.push(<br/>);
             }
+            buttons.push(<button onClick={this.handleTradeCancel}>Cancel</button>);
         }   
         else if (this.state.costMode === "build") {
             for (var i=0; i<this.state.cardCostOptions.length; i++){
@@ -269,6 +278,7 @@ class HandCard extends Component {
                 buttons.push(<button onClick={(event) => this.handleBuild(event, null, thisIndex)} data-cardname={card.card.name}>{costDisplay}</button>);
                 buttons.push(<br/>);
             }
+            buttons.push(<button onClick={this.handleTradeCancel}>Cancel</button>);
         }
         var cardClass = card.status === "OK" ? "card-playable" : "card-unplayable";
         return (
