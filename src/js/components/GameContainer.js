@@ -42,9 +42,6 @@ class GameContainer extends Component {
         let buildState = this.props.gameState.buildState;
         let cards = this.props.gameState.cards;
         let boardCards = this.props.gameState.cardsOnBoard;
-        let coins = this.props.gameState.coins;
-        let victories = this.props.gameState.allVictories;
-        let defeats = this.props.gameState.allDefeats;
         let actions = this.props.gameState.nextActions;    
         let leftNeighbor = this.props.gameState.leftNeighbor;
         let rightNeighbor = this.props.gameState.rightNeighbor;
@@ -53,12 +50,11 @@ class GameContainer extends Component {
 
         return (
             <div id="game-container">
-                <Tray allVictories={victories} allDefeats={defeats} coins={coins} discards={this.props.gameState.discards} />
                 <NeighborCards data={leftNeighbor} right={false} updateNeighbor={this.handleNeighborUpdate} />
                 <NeighborCards data={rightNeighbor} right={true} updateNeighbor={this.handleNeighborUpdate} />
-                <Board cards={boardCards} board={board} buildState={buildState} boardSide={boardSide} faded={this.state.faded} />
+                <Board cards={boardCards} board={board} buildState={buildState} boardSide={boardSide} faded={this.state.faded} gameState={this.props.gameState} />
                 <Hand cards={cards} canBuild={canBuild} handleAction={this.handleAction} actions={actions} buildCost={buildCost} currentAge={this.props.gameState.age} />
-                <GameControls />
+                <GameControls discards={this.props.gameState.discards} />
                 <Notifications />
             </div>
         );

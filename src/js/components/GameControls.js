@@ -41,9 +41,22 @@ class GameControls extends Component {
 
 	
 	render() {
+		let discards = [];
+        if (this.props.discards) {
+            discards.push(<span>Discard Pile: <br></br></span>);
+            for(var i=0; i<3; i++){
+                for (var j=0; j<this.props.discards[i]; j++){
+                    discards.push(<img src={"../../images/cards/age" + (i+1) + ".png"} />);
+                }
+            }
+        }
+        
 		return (
 			<div class="game-controls">
-				<button onClick={this.handleEnd}>End Game</button>
+				<button onClick={this.handleEnd} id="end-game">End Game</button>
+				<div class="discards">
+                    {discards}
+                </div> 
 				<label class="enable-help">
 					<input type="checkbox" id="enable-help" name="enable-help" onChange={this.handleHelp} />
 					Show help text for cards 					

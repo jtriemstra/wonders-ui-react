@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import CardImage from "../CardImage";
 import BoardImage from "../BoardImage";
-
+import Tray from "./Tray";
 
 class Board2 extends Component {
     constructor() {
@@ -104,6 +104,10 @@ class Board2 extends Component {
           marginLeft = '' + (11 + cardCounts[0] - 1) + '%';
         }
         
+        let coins = this.props.gameState.coins;
+        let victories = this.props.gameState.allVictories;
+        let defeats = this.props.gameState.allDefeats;
+        
         return (
                 <div className={"board-container " + specialClass} style={{'margin-top':marginTop, 'margin-left':marginLeft}}>
                   <div class="board-stack" style={{'top':'0px','left':'0px'}}>{resources}</div>
@@ -111,7 +115,10 @@ class Board2 extends Component {
                   <div class="board-stack" style={{'top':'0px','left':'40%'}}>{victory}</div>
                   <div class="board-stack" style={{'top':'0px','left':'60%'}}>{science}</div>
                   <div class="board-stack" style={{'top':'0px','left':'80%'}}>{army}</div>
-                  <img className="board-background" src={"images/boards/" + BoardImage.getImage(board, boardSide)} />
+                  <div className="board-area">
+                  	<Tray allVictories={victories} allDefeats={defeats} coins={coins} />
+                  	<img className="board-background" src={"images/boards/" + BoardImage.getImage(board, boardSide)} />
+              	  </div>
                   <div className="board-stages"><div className="dummy-stage"></div>{builtStages}</div>                    
                 </div>);
     }

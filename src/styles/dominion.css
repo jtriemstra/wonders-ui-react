@@ -232,49 +232,50 @@ img.board-card {
 
 .tray{
     position:absolute;
-    top:0;
-    right:0;
+    top:50px;
+    left:0;
+    z-index:8;
+    margin: 15px 0 0 15px;
+    padding: 3px;
+ 	background-color:white;
+ 	opacity: .5;   
+ 	border-radius: 5px;
 }
-.tray .coins {
-    background-image: url('../images/icons/coin1.png');
-    background-size:100% 100%;
-    height:80px;
-    width:80px;
-    display:inline-block;
-}
+
 .tray .coin-wrapper {
-    position: absolute;
-    padding: 33px;
     font-size: 40px;
     font-family: 'cafeteriaBlack';
+    vertical-align: top;
 }
 .tray .coin-background {
     background-color:white;
     width: 45px;
     position: relative;
     display: inline-block;
-    text-align: center;
-    border-radius: 22px;
-    opacity: .75;
+    text-align: center;    
 }
-.tray .victories, .tray .defeats {
+.tray .victories, .tray .defeats, .tray .coins {
     display:inline-block;
-    opacity:.65;
+    opacity:2;
 }
 .tray .victories img, .tray .defeats img {
     width: 40px;
     padding: 3px;
 }
-.tray .discards {
+.game-controls .discards {
     display:inline-block;
     opacity: .75;    
-    padding-right:20px;
+    padding: 0px 20px 0px 20px;
     font-family: possumSaltare;
     text-transform: uppercase;
 }
-.tray .discards img {
+.game-controls .discards img {
     width:30px;
     margin-right:-12px;
+}
+
+.game-controls #end-game {
+	vertical-align: top;
 }
 
 .popup-background {
