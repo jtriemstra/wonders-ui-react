@@ -8,16 +8,22 @@ class Hand extends Component {
       super();      
       this.handleAction = this.handleAction.bind(this);
       this.handleToggle = this.handleToggle.bind(this);
-      this.state = {visible:true};
+      this.disableOtherCards = this.disableOtherCards.bind(this);
+      this.state = {visible:true, enabledCardIndex:-1};
     }
 
     handleAction(result){
         this.props.handleAction(result);
+        this.setState({enabledCardIndex:-1});
     }
 
     handleToggle(){
       this.setState({visible:!this.state.visible});
     }
+    
+    disableOtherCards(enabledCardIndex) {
+		this.setState({enabledCardIndex:enabledCardIndex});			
+	}
 
     render() {
         var result = [];
@@ -25,10 +31,10 @@ class Hand extends Component {
         let toggleHandText = this.state.visible ? <>Hide<br></br> Hand</> : <>Show<br></br>Hand</>;
 
         if (this.props.cards){
-          
+          console.log(this.state.enabledCardIndex);
           for (var i=0; i<this.props.cards.length; i++){
             var card = this.props.cards[i];
-            result.push(<HandCard card={card} canBuild={this.props.canBuild} handleAction={this.handleAction} actions={this.props.actions} buildCost={this.props.buildCost} />);
+            result.push(<HandCard card={card} canBuild={this.props.canBuild} handleAction={this.handleAction} actions={this.props.actions} buildCost={this.props.buildCost} handIndex={i} handleCostOptions={this.disableOtherCards} enableButtons={this.state.enabledCardIndex == -1 || this.state.enabledCardIndex == i} />);
           }
         }
         // toggle hidden for now, current styles for hand make it pointless

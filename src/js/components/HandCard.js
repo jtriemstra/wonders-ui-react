@@ -46,8 +46,13 @@ class HandCard extends Component {
 
         if (costOptions != null && costOptions.length > 0) {
             this.setState({"cardCostOptions":costOptions, "costMode":"play"});
+            this.props.handleCostOptions(this.props.handIndex);
             return;
         }
+        
+        if (!window.confirm("Do you want to play this card?")) {
+			return;
+		}
 
         let costIndexParam = (costIndex != null) ? "&tradingInfo.playableIndex=" + costIndex : "";        
         this.setState({"cardCostOptions":null, "costMode":null});
@@ -71,6 +76,10 @@ class HandCard extends Component {
     handlePlayFree(event){
         event.preventDefault();
 
+		if (!window.confirm("Do you want to play this card?")) {
+			return;
+		}
+		
         fetch(Utility.apiServer() + "/playFree?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName() + "&cardName=" + event.target.dataset.cardname)
         .then(res => {
             if (res.ok) { return res.json(); }
@@ -89,6 +98,10 @@ class HandCard extends Component {
 
     handleDiscard(event){
         event.preventDefault();
+        
+        if (!window.confirm("Do you want to discard this card?")) {
+			return;
+		}
 
         fetch(Utility.apiServer() + "/discard?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName() + "&cardName=" + event.target.dataset.cardname)
         .then(res => {
@@ -108,6 +121,10 @@ class HandCard extends Component {
 
     handleKeepLeader(event){
         event.preventDefault();
+        
+        if (!window.confirm("Do you want to keep this card?")) {
+			return;
+		}
 
         fetch(Utility.apiServer() + "/keepLeader?playerId=" + this.getPlayerName() + "&gameName=" + this.getGameName() + "&cardName=" + event.target.dataset.cardname)
         .then(res => {
@@ -127,9 +144,14 @@ class HandCard extends Component {
 
     handleBuild(event, costOptions, costIndex){
         event.preventDefault();
+        
+        if (!window.confirm("Do you want to use this card to build the next stage?")) {
+			return;
+		}
 
         if (costOptions != null && costOptions.length > 0) {
             this.setState({"cardCostOptions":costOptions, "costMode":"build"});
+            this.props.handleCostOptions(this.props.handIndex);
             return;
         }
 
@@ -251,7 +273,7 @@ class HandCard extends Component {
         var cardClass = card.status === "OK" ? "card-playable" : "card-unplayable";
         return (
             <li className={cardClass + " card"}>
-                <div class="button-container">{buttons}</div>
+                <div class="button-container">{this.props.enableButtons ? buttons : ""}</div>
                 <img src={"images/cards/" + CardImage.getImage(card.card.name)} />   
                 <p class="card-help">
                 	{card.card.help}
