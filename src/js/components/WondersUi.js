@@ -124,6 +124,7 @@ class WondersUi extends Component {
     let mergedState = this.state.gameState || {};
     if (newState.boardName) mergedState.boardName = newState.boardName;
     if (newState.boardSide) mergedState.boardSide = newState.boardSide;
+    if (newState.boardHelp) mergedState.boardHelp = newState.boardHelp;
     if (newState.cards) mergedState.cards = newState.cards;
     if (newState.cardsOnBoard) mergedState.cardsOnBoard = newState.cardsOnBoard;
     if (newState.coins != undefined) mergedState.coins = newState.coins;

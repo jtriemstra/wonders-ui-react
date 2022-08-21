@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import CardImage from "../CardImage";
 import BoardImage from "../BoardImage";
 import Tray from "./Tray";
+import BoardHelp from "./BoardHelp";
 
 class Board2 extends Component {
     constructor() {
@@ -117,6 +118,7 @@ class Board2 extends Component {
                   <div class="board-stack" style={{'top':'0px','left':'80%'}}>{army}</div>
                   <div className="board-area">
                   	<Tray allVictories={victories} allDefeats={defeats} coins={coins} />
+                  	<BoardHelp helpText={this.props.gameState.boardHelp} />
                   	<img className="board-background" src={"images/boards/" + BoardImage.getImage(board, boardSide)} />
               	  </div>
                   <div className="board-stages"><div className="dummy-stage"></div>{builtStages}</div>                    

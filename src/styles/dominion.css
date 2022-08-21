@@ -138,6 +138,9 @@ img.board-card {
 .board-container-faded {
     opacity:.5;
 }
+.board-area {
+	position:relative;
+}
 .board-card {
     max-width:180px;
     /*height:275px;*/
@@ -262,6 +265,62 @@ img.board-card {
     width: 40px;
     padding: 3px;
 }
+
+.board-help {
+	position:absolute;
+	bottom:0;
+	z-index: 8;
+	width:100%;
+	text-align:left;
+}
+.board-help .help-button {
+	display:inline-block;
+	background-color:darkgray;
+	border-radius:24px;
+	width:20px;
+	height:20px;
+	text-align:center;	
+}
+.board-help .help-button:nth-of-type(1) {
+    margin-left:33%;
+}
+.board-help .help-button:nth-of-type(2) {
+    margin-left:27%;
+}
+.board-help .help-button:nth-of-type(3) {
+    margin-left:27%;
+}
+.two-stage-board .board-help .help-button:nth-of-type(1) {
+    margin-left:60%;
+}
+.two-stage-board .board-help .help-button:nth-of-type(2) {
+    margin-left:27%;
+}
+.four-stage-board .board-help .help-button:nth-of-type(1) {
+    margin-left:22%;
+}
+.four-stage-board .board-help .help-button:nth-of-type(2) {
+    margin-left:24%;
+}
+.four-stage-board .board-help .help-button:nth-of-type(3) {
+    margin-left:23%;
+}
+.four-stage-board .board-help .help-button:nth-of-type(4) {
+    margin-left:21%;
+}
+.two-stage-board-rome .board-help .help-button:nth-of-type(1) {
+    margin-left:44%;
+}
+.two-stage-board-rome .board-help .help-button:nth-of-type(2) {
+    margin-left:34%;
+}
+.board-help .help-button a {
+	color:white;
+	font-family: 'cafeteriaBlack';
+	text-decoration: none;
+	font-size:20px;
+}
+
 .game-controls .discards {
     display:inline-block;
     opacity: .75;    
