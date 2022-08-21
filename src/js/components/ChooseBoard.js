@@ -28,7 +28,8 @@ class ChooseBoard extends Component {
     render() {
         let boardUses = this.props.boardUses;
         let boardList = [];
-        let boardSides = ["A","B"];
+        let boardSideAllowed = this.props.boardSideAllowed;
+        let boardSides = (boardSideAllowed === "A_ONLY" ? ["A"] : (boardSideAllowed === "B_ONLY" ? ["B"] : ["A","B"]));
         let currentFlag = null;
 
         for (var boardNameKey in boardUses){

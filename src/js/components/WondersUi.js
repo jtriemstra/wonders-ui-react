@@ -45,6 +45,7 @@ class WondersUi extends Component {
         gameState: null,
         ageFinished: false,
         boardList: null,
+        boardSideAllowed: null,
         listBoardTimeout:null,
         lastAgeFinished: 1
       };
@@ -152,6 +153,7 @@ class WondersUi extends Component {
     this.setState({gameState: mergedState});
     if (!newState.boards) {
       this.setState({boardList:null});
+      this.setState({boardSideAllowed:null});
     }
 
     console.log(newState.nextActions);
@@ -231,7 +233,7 @@ class WondersUi extends Component {
         .then(res => res.json())
         .then((result) => {
             console.log(result);
-            this.setState({boardList:result.boards});
+            this.setState({boardList:result.boards, boardSideAllowed:result.sideAllowed});
             this.updateState(result);
         });
   }
@@ -340,7 +342,7 @@ finishGame(){
     let allVictoryPoints = this.state.gameState ? this.state.gameState.allVictoryPoints : null;
 
     let ageCompletePopup = this.state.ageFinished ? <FinishAge age={this.state.lastAgeFinished} victories={victories} defeats={defeats} allVictoryPoints={allVictoryPoints} startAge={this.startAge} playerName={this.getPlayerName()} gameName={this.getGameName()} endGame={this.endGame} /> : null;
-    let tempDom = this.state.boardList != null ? <ChooseBoard timeoutClear={this.listBoardsClearTimeout} boardUses={this.state.boardList} currentBoard={this.state.gameState.boardName} currentSide={this.state.gameState.boardSide} onGameStart={this.handleNewState} playerName={this.getPlayerName()} gameName={this.getGameName()} /> : <GameContainer gameState={gameState} handleAction={this.handleAction}/>;
+    let tempDom = this.state.boardList != null ? <ChooseBoard timeoutClear={this.listBoardsClearTimeout} boardUses={this.state.boardList} currentBoard={this.state.gameState.boardName} currentSide={this.state.gameState.boardSide} onGameStart={this.handleNewState} playerName={this.getPlayerName()} gameName={this.getGameName()} boardSideAllowed={this.state.boardSideAllowed} /> : <GameContainer gameState={gameState} handleAction={this.handleAction}/>;
     console.log(this.state);
     let leaderPopup = this.state.leaderPopup ? <LeaderPopup close={this.closePopup} newLeaders={this.state.gameState.newLeaders} /> : null;
 
