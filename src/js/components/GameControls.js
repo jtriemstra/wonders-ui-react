@@ -7,6 +7,7 @@ class GameControls extends Component {
       super();      
       this.handleEnd = this.handleEnd.bind(this);
       this.handleHelp = this.handleHelp.bind(this);  
+      this.handleConfirm = this.handleConfirm.bind(this);  
 	}
 	
 	handleEnd(e) {
@@ -38,7 +39,17 @@ class GameControls extends Component {
 			}
 		}
 	}
-
+	
+	handleConfirm(e) {
+		if (e && e.target) {
+			if (e.target.checked) {
+				document.querySelector("#game-container").classList.add("confirm-disabled");
+			}
+			else {
+				document.querySelector("#game-container").classList.remove("confirm-disabled");	
+			}
+		}
+	}
 	
 	render() {
 		let discards = [];
@@ -52,15 +63,21 @@ class GameControls extends Component {
         }
         
 		return (
-			<div class="game-controls">
+			<div className="game-controls">
 				<button onClick={this.handleEnd} id="end-game">End Game</button>
-				<div class="discards">
+				<div className="discards">
                     {discards}
                 </div> 
-				<label class="enable-help">
-					<input type="checkbox" id="enable-help" name="enable-help" onChange={this.handleHelp} />
-					Show help text for cards 					
-				</label>
+                <div className="user-options">
+					<label class="enable-help">
+						<input type="checkbox" id="enable-help" name="enable-help" onChange={this.handleHelp} />
+						Show help text for cards 					
+					</label>
+					<label class="disable-confirm">
+						<input type="checkbox" id="disable-confirm" name="disable-confirm" onChange={this.handleConfirm} />
+						Skip confirmation check when playing, building, etc					
+					</label>
+				</div>
 			</div>	
 		);	
 	}

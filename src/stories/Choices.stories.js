@@ -37,7 +37,7 @@ test2.args = {
 export const test3 = Template.bind({});
 test3.args = {
   isWaiting: false,
-  options:[{name:"Scientists Guild", value:"Scientists Guild"}, {name:"Traders Guild", value:"Traders Guild"}, {name:"Spies Guild", value:"Spies Guild"}],
+  options:[{name:"Scientists Guild", value:"Scientists Guild", help:"Some help text 1"}, {name:"Traders Guild", value:"Traders Guild", help:"Some help text 2"}, {name:"Spies Guild", value:"Spies Guild", help:"Some help text 3"}],
   action:"chooseGuild",
   updateState:x,
   playerName:"player name",

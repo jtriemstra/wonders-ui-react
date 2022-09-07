@@ -34,19 +34,24 @@ class Choices extends Component {
                         <div className="parchment"></div>
                         <div className="splash-screen-wrapper">
                             <h2>{heading}</h2>
+                            <div className="options-container">
                             {
                                 this.props.options.map((option) => {
                                     let optionName = option.name ? option.name : option;
                                     let clickable = optionName;
+                                    let helpText = option.help ? option.help : "";
                                     if (this.props.action === "chooseGuild") {
                                         clickable = <img src={"images/cards/" + CardImage.getImage(optionName)} />;
                                     }
                                     else if (this.props.action === "chooseScience"){
                                         clickable = <img src={"images/icons/" + optionName + ".png"} />;
                                     }
-                                    return <a onClick={(event) => this.handleOption(optionName, event)}>{clickable}</a>;
+                                    return <div className="option">
+                                    	<a onClick={(event) => this.handleOption(optionName, event)}>{clickable}</a><p>{helpText}</p>
+                                	</div>;
                                 })
-                            }                            
+                            }                
+                            </div>            
                         </div>
                         <svg>
                             <filter id="wavy2">

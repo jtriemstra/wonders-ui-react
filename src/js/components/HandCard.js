@@ -13,6 +13,7 @@ class HandCard extends Component {
       this.handleDiscard = this.handleDiscard.bind(this);
       this.handleKeepLeader = this.handleKeepLeader.bind(this);
       this.handleTradeCancel = this.handleTradeCancel.bind(this);
+	  this.confirmWrapper = this.confirmWrapper.bind(this);
 
       this.state = {cardCostOptions:null, costMode:null};
     }
@@ -40,6 +41,11 @@ class HandCard extends Component {
             }
         }
       }
+      
+  	confirmWrapper(message) {
+		let confirmDisabled = document.querySelector("#game-container").classList.contains("confirm-disabled");
+		return confirmDisabled || window.confirm(message);
+	}
 
     handlePlay(event, costOptions, costIndex){
         //TODO: allow "undoing" an action if other players are still thinking
@@ -51,7 +57,7 @@ class HandCard extends Component {
             return;
         }
         
-        if (!window.confirm("Do you want to play this card?")) {
+        if (!this.confirmWrapper("Do you want to play this card?")) {
 			return;
 		}
 
@@ -77,7 +83,7 @@ class HandCard extends Component {
     handlePlayFree(event){
         event.preventDefault();
 
-		if (!window.confirm("Do you want to play this card?")) {
+		if (!this.confirmWrapper("Do you want to play this card?")) {
 			return;
 		}
 		
@@ -100,7 +106,7 @@ class HandCard extends Component {
     handleDiscard(event){
         event.preventDefault();
         
-        if (!window.confirm("Do you want to discard this card?")) {
+        if (!this.confirmWrapper("Do you want to discard this card?")) {
 			return;
 		}
 
@@ -123,7 +129,7 @@ class HandCard extends Component {
     handleKeepLeader(event){
         event.preventDefault();
         
-        if (!window.confirm("Do you want to keep this card?")) {
+        if (!this.confirmWrapper("Do you want to keep this card?")) {
 			return;
 		}
 
@@ -146,7 +152,7 @@ class HandCard extends Component {
     handleBuild(event, costOptions, costIndex){
         event.preventDefault();
         
-        if (!window.confirm("Do you want to use this card to build the next stage?")) {
+        if (!this.confirmWrapper("Do you want to use this card to build the next stage?")) {
 			return;
 		}
 
