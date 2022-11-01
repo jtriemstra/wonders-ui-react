@@ -47,3 +47,13 @@ test4.args = {
   allVictories:{"2":[3,3]},
   allVictoryPoints:{"ARMY":3,"COINS":4}
 };
+
+export const test5 = Template.bind({});
+test5.args = {
+  victories:2,
+  defeats:0,
+  age:2,
+  allDefeats:1,
+  allVictories:{"2":[3,3]},
+  allVictoryPoints:{"COMMERCE":0,"STAGES":0,"GUILD":0,"ARMY":-4,"SCIENCE":10,"VICTORY":23,"COIN":1}
+};

@@ -387,10 +387,17 @@ img.board-card {
     width:70%;
     top: 50%;
     transform: translateY(-50%);
-    text-align: center;    
+    text-align: center; 
+    max-height:80%;
+}
+.popup-content.large {
+	height:80%;   
 }
 .popup-content p {
     position: absolute;
+}
+.popup-content p, .popup-content.small > div {
+	transform: translateY(20%);
 }
 .popup-content p, .popup-content > div {
     margin: 0px;
@@ -399,7 +406,7 @@ img.board-card {
     font-family: possumSaltare;
     text-transform: uppercase;
     font-size:36px;
-    transform: translateY(20%);
+       
 }
 .parchment {
     position: absolute;
@@ -423,8 +430,12 @@ img.board-card {
 }
 .splash-screen-wrapper {
     position:relative;
+    height:100%;
+    
 }
-
+.popup-content.large .splash-screen-wrapper {
+	overflow:scroll;
+}
 
 .board-list .current-board{
     position:absolute;

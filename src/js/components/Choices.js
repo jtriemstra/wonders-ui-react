@@ -30,7 +30,7 @@ class Choices extends Component {
             let heading = this.props.action === "chooseScience" ? "Choose a scientific symbol" : (this.props.action === "chooseGuild" ? "Choose a guild card to copy" :"");
             return (
                 <div className="popup-background">
-                    <div className="popup-content">
+                    <div className="popup-content small">
                         <div className="parchment"></div>
                         <div className="splash-screen-wrapper">
                             <h2>{heading}</h2>

@@ -76,8 +76,8 @@ class SplashScreen extends Component {
         .then(res => res.json())
         .then((result) => {
             document.querySelector("#gameName").length = 0;
-            for (var i=0; i<result.games.games.length; i++){
-                document.querySelector("#gameName").add(new Option(result.games.games[i]));
+            for (var i=0; i<result.games.length; i++){
+                document.querySelector("#gameName").add(new Option(result.games[i]));
             }
         })
         .catch(error => {console.log(error);});
@@ -86,7 +86,7 @@ class SplashScreen extends Component {
     render() {
         return (
             <div>
-            <form className="popup-content">
+            <form className="popup-content small">
                 <div className="parchment"></div>
                 <div className="splash-screen-wrapper">
                     <div className="splash-screen-column">

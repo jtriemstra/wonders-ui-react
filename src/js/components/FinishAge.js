@@ -63,6 +63,7 @@ class FinishAge extends Component {
             let gameComplete = this.props.allVictoryPoints != undefined;
             let nextAgeButton = gameComplete ? null : <button onClick={this.startAge}>Start Next Age</button>;
             let endGameButton = gameComplete ? <button onClick={this.handleEnd}>End Game</button> : null;
+            let popupClass = "popup-content";
 
             var result = [];
             if (gameComplete) {
@@ -78,11 +79,15 @@ class FinishAge extends Component {
                     total = total + value
                 }
                 result.push(<div>Total: {total}</div>);
+                popupClass = popupClass + " large";
             }
+            else {
+				popupClass = popupClass + " small";
+			}
 
             return (
                 <div className="popup-background">
-                    <div className="popup-content">
+                    <div className={popupClass}>
                         <div className="parchment"></div>
                         <div className="splash-screen-wrapper">
                             <h3>Age Complete!</h3>

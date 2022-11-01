@@ -16,9 +16,11 @@ class Waiting extends Component {
             return (
                 <>
                 <div className="popup-background">
-                    <div className="popup-content">
+                    <div className="popup-content small">
                         <div className="parchment"></div>
-                        <p>Waiting {message}</p>   
+                        <div className="splash-screen-wrapper">
+                        	<p>Waiting {message}</p>   
+                        </div>
                     </div>
                     
                 </div>

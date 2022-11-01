@@ -39,7 +39,7 @@ class DefineGame extends Component {
     render() {
         return (
             <div>
-                <form className="popup-content">
+                <form className="popup-content small">
                     <div className="parchment"></div>
                     <div className="splash-screen-column">
                         <label className="user-name">Number of players: <input type="text" id="numberOfPlayers"></input></label>
