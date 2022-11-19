@@ -346,6 +346,12 @@ img.board-card {
 	font-size:20px;
 }
 
+
+.game-controls {
+	position:absolute;
+	bottom:0px;
+	width:100%;
+}
 .game-controls .discards {
     display:inline-block;
     opacity: .75;    
@@ -360,6 +366,7 @@ img.board-card {
 
 .game-controls #end-game {
 	vertical-align: top;
+	
 }
 .user-options {
 	position:absolute;

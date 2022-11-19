@@ -44,7 +44,7 @@ test2.args = {
     boardName:"Olympia",
     leftNeighbor:{boardResource:"GLASS",
       name:"test",
-      cardsOnBoard:["West Trading Post","Stone Pit","Ore Vein","Baths","Theater","Clay Pool"],
+      cardsOnBoard:["West Trading Post","Stone Pit","Ore Vein","Baths","Theater","Clay Pool","West Trading Post","Stone Pit","Ore Vein","Baths","Theater","West Trading Post","Stone Pit","Ore Vein","Baths","Theater"],
       stagesBuilt:1,
       boardName:"Giza",
       boardSide:"B"

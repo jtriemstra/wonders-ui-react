@@ -10,17 +10,20 @@ class BoardHelp extends Component {
     
     handleHelp(event, helpIndex) {
 		event.preventDefault();
-		window.alert(this.props.helpText[helpIndex]);
+		if (this.props.helpText) {
+			window.alert(this.props.helpText[helpIndex]);
+		}
 	}
     
     render() {
 	
 		let helpButtons = [];
-		for (var i=0; i<this.props.helpText.length; i++){
-			let thisIndex = i;
-			helpButtons.push(<div className="help-button" onClick={(event) => this.handleHelp(event, thisIndex)} ><a href="#">?</a></div>);
-		}	 
-		
+		if (this.props.helpText) {
+			for (var i=0; i<this.props.helpText.length; i++){
+				let thisIndex = i;
+				helpButtons.push(<div className="help-button" onClick={(event) => this.handleHelp(event, thisIndex)} ><a href="#">?</a></div>);
+			}	 
+		}
         return (
             <div class="board-help">
                 {helpButtons}

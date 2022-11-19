@@ -64,10 +64,6 @@ class GameControls extends Component {
         
 		return (
 			<div className="game-controls">
-				<button onClick={this.handleEnd} id="end-game">End Game</button>
-				<div className="discards">
-                    {discards}
-                </div> 
                 <div className="user-options">
 					<label class="enable-help">
 						<input type="checkbox" id="enable-help" name="enable-help" onChange={this.handleHelp} />
@@ -78,6 +74,10 @@ class GameControls extends Component {
 						Skip confirmation check when playing, building, etc					
 					</label>
 				</div>
+				<button onClick={this.handleEnd} id="end-game">End Game</button>
+				<div className="discards">
+                    {discards}
+                </div> 
 			</div>	
 		);	
 	}
