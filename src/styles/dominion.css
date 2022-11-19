@@ -437,6 +437,15 @@ img.board-card {
 	overflow:scroll;
 }
 
+.end-age {
+	margin-bottom:0px;
+}
+
+.end-age-left, .end-age-right {
+	width:48%;
+	display:inline-block;
+}
+
 .board-list .current-board{
     position:absolute;
     width:45%;

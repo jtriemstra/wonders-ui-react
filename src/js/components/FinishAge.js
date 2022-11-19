@@ -7,9 +7,38 @@ class FinishAge extends Component {
       super();      
       this.startAge = this.startAge.bind(this);
       this.handleEnd = this.handleEnd.bind(this);
+      this.renderIcons = this.renderIcons.bind(this);
     }
+    
+    renderIcons() {
+		let left = [], right = [];
+		let points = this.props.age == 1 ? 1 : (this.props.age == 2 ? 3 : 5);
+		
+		if (this.props.victories) {
+			for (var i=0; i<this.props.victories.length; i++){
+					
+				if (this.props.victories[i].left) {
+					left.push(<div className="end-age-left"><div>{this.props.victories[i].neighborName}</div> <img src={"../../images/icons/victory" + points + ".png"} /></div>);
+				} else {
+					right.push(<div className="end-age-right"><div>{this.props.victories[i].neighborName}</div> <img src={"../../images/icons/victory" + points + ".png"} /></div>);
+				}
+			}
+		}
+		
+		if (this.props.defeats) {
+			for (var i=0; i<this.props.defeats.length; i++){
+				if (this.props.defeats[i].left) {
+					left.push(<div className="end-age-left"><div>{this.props.defeats[i].neighborName}</div> <img src="../../images/icons/victoryminus1.png" /></div>);
+				} else {
+					right.push(<div className="end-age-right"><div>{this.props.defeats[i].neighborName}</div> <img src="../../images/icons/victoryminus1.png" /></div>);
+				}
+			}
+		}
+		
+		return <div>{left} {right}</div>;
+	}
 
-    renderVictories() {
+   /* renderVictories() {
         let result = [];
         let points = this.props.age == 1 ? 1 : (this.props.age == 2 ? 3 : 5);
         for (var i=0; i<this.props.victories; i++){
@@ -24,7 +53,7 @@ class FinishAge extends Component {
             result.push(<img src="../../images/icons/victoryminus1.png" />);
         }
         return <div >{result}</div>;
-    }
+    }*/
 
     startAge(){
         // var myRequest = new Request(Utility.apiServer() + "/startAge?playerId=" + this.props.playerName + "&gameName=" + this.props.gameName);
@@ -58,12 +87,11 @@ class FinishAge extends Component {
     }
 
     render() {
-            let victories = this.props.victories ? this.props.victories : 0;
-            let defeats = this.props.defeats ? this.props.defeats : 0;
             let gameComplete = this.props.allVictoryPoints != undefined;
             let nextAgeButton = gameComplete ? null : <button onClick={this.startAge}>Start Next Age</button>;
             let endGameButton = gameComplete ? <button onClick={this.handleEnd}>End Game</button> : null;
             let popupClass = "popup-content";
+            let tieContent = <h6>you tied both neighbors</h6>;
 
             var result = [];
             if (gameComplete) {
@@ -84,6 +112,10 @@ class FinishAge extends Component {
             else {
 				popupClass = popupClass + " small";
 			}
+			
+			if ((this.props.victories && this.props.victories.length > 0) || (this.props.defeats && this.props.defeats.length > 0)) {
+				tieContent = "";
+			}
 
             return (
                 <div className="popup-background">
@@ -91,8 +123,9 @@ class FinishAge extends Component {
                         <div className="parchment"></div>
                         <div className="splash-screen-wrapper">
                             <h3>Age Complete!</h3>
-                            {this.renderVictories()}
-                            {this.renderDefeats()}
+                            <h5 className="end-age">Result of military conflicts:</h5>
+                            {tieContent}
+                            {this.renderIcons()}
                             {result}
                             {nextAgeButton}
                             {endGameButton}

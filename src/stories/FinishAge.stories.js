@@ -15,15 +15,15 @@ const x = function(){
 
 export const test1 = Template.bind({});
 test1.args = {
-  victories:1,
-  defeats:1,
+  victories:[{"left":true,"neighborName":"test",points:3}],
+  defeats:[{"left":false,"neighborName":"test 2",points:-1}],
   age:2
 };
 
 export const test2 = Template.bind({});
 test2.args = {
-  victories:2,
-  defeats:0,
+  victories:[{"left":true,"neighborName":"test",points:1}],
+  defeats:[],
   age:1,
   allDefeats:0,
   allVictories:{"1":[1,1]}
@@ -31,8 +31,8 @@ test2.args = {
 
 export const test3 = Template.bind({});
 test3.args = {
-  victories:2,
-  defeats:0,
+  victories:[{"left":true,"neighborName":"test",points:3},{"left":false,"neighborName":"test 2",points:3}],
+  defeats:[],
   age:2,
   allDefeats:1,
   allVictories:{"2":[3,3]}
@@ -40,8 +40,8 @@ test3.args = {
 
 export const test4 = Template.bind({});
 test4.args = {
-  victories:2,
-  defeats:0,
+  victories:[{"left":true,"neighborName":"test",points:3},{"left":false,"neighborName":"test 2",points:3}],
+  defeats:[],
   age:2,
   allDefeats:1,
   allVictories:{"2":[3,3]},
@@ -50,8 +50,8 @@ test4.args = {
 
 export const test5 = Template.bind({});
 test5.args = {
-  victories:2,
-  defeats:0,
+  victories:[{"left":true,"neighborName":"test",points:3},{"left":false,"neighborName":"test 2",points:3}],
+  defeats:[],
   age:2,
   allDefeats:1,
   allVictories:{"2":[3,3]},
